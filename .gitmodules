@@ -1,9 +1,9 @@
 [submodule "src/ConePoser"]
 	path = src/ConePoser
 	url = https://github.com/leonardonels/cone_poser.git
-[submodule "src/ConeFused"]
-	path = src/ConeFused
-	url = https://github.com/leonardonels/cone_fused.git
 [submodule "src/cudaCONERUSH"]
 	path = src/cudaCONERUSH
 	url = https://github.com/leonardonels/cuda_cone_rush.git
+[submodule "src/cudaCONEFUSED"]
+	path = src/cudaCONEFUSED
+	url = https://github.com/leonardonels/cuda_cone_fused.git

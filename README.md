@@ -18,7 +18,7 @@ list of links to repos that each individually claim to be the important one.
 |---|---|---|
 | **cuCONERUSH** | [`src/cudaCONERUSH`](src/cudaCONERUSH) | GPU-first LiDAR cone detection. Turns a point cloud into cone markers without ever leaving the GPU, because asking the CPU to help would be embarrassing. |
 | **cone_poser** | [`src/ConePoser`](src/ConePoser) | Takes clustered cones and an odometry pose, multiplies two transforms together, and places the cones in a global frame. Yes, that is the whole package. It does it well. |
-| **cone_fused** | [`src/ConeFused`](src/ConeFused) | Cone-based EKF-SLAM. Uses the cones — which, unlike your odometry, refuse to drift — to drag FAST-LIMO back to reality. |
+| **cuCONEFUSED** | [`src/cudaCONEFUSED`](src/cudaCONEFUSED) | Cone-based EKF-SLAM. Uses the cones — which, unlike your odometry, refuse to drift — to drag FAST-LIMO back to reality. |
 
 ### cuCONERUSH — `cuda_cone_rush`
 The detection front-end. The pipeline stays on CUDA buffers the entire way through:
@@ -40,7 +40,7 @@ $$T_{global} = T_{odom} \cdot T_{marker}$$
 and it does not pretend otherwise. Cones come in local, cones go out global. No
 filtering, no fusion, no drama. Sometimes you just need the cones *somewhere else*.
 
-### cone_fused — `cone_fused`
+### cuCONEFUSED — `cuda_cone_fused`
 The clever one. An EKF-SLAM node that treats FAST-LIMO/FAST-LIO odometry as a purely
 *relative* motion source and the track's static cones as landmarks. The result is an
 `/Odometry` pose in the `track` frame that, from the second lap onward, snaps onto the
