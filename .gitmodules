@@ -7,3 +7,6 @@
 [submodule "src/cudaCONEFUSED"]
 	path = src/cudaCONEFUSED
 	url = https://github.com/leonardonels/cuda_cone_fused.git
+[submodule "src/cudaCONESTELLATION"]
+	path = src/cudaCONESTELLATION
+	url = https://github.com/leonardonels/cuda_cone_stellation.git
