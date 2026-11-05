@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ConeSortium · Mosaic</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;600;800;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Direction 03 · Swiss collage: the repo's real numbers assembled into one poster-grid around a halftone cone */
+:root{
+  --ground:#E3D8C6; --orange:#EE6238; --black:#2A2725; --paper:#EFE7DA; --line:#2A2725; --soft:#6D655B;
+  --display:'Schibsted Grotesk','Helvetica Neue',Arial,sans-serif; --mono:'DM Mono',ui-monospace,monospace;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--black);font:15px/1.5 var(--display)}
+a{color:inherit}
+.wrap{max-width:1120px;margin:0 auto;padding:48px max(16px,env(safe-area-inset-right,0px)) 72px max(16px,env(safe-area-inset-left,0px));display:flex;flex-direction:column;gap:72px}
+.mono{font:400 11px/1.3 var(--mono);letter-spacing:.06em}
+.grain{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .22 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E")}
+.poster{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));grid-auto-rows:clamp(54px,8vw,92px);gap:0;position:relative}
+.poster>*{position:relative;overflow:hidden}
+.o{background-color:var(--orange)} .k{background-color:var(--black);color:var(--paper)} .p{background-color:var(--paper)}
+.g{background-color:var(--paper);background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:10px 10px;background-position:-1px -1px;opacity:.9}
+.g.o{background-color:var(--orange)}
+.hl{border-left:1px solid var(--line)}
+.halftone{background:var(--paper)}
+.halftone::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,var(--black) 0 42%,transparent 44%) 0 0/7px 7px;
+  -webkit-mask:linear-gradient(105deg,#000 20%,rgba(0,0,0,.35) 60%,#000 90%);mask:linear-gradient(105deg,#000 20%,rgba(0,0,0,.35) 60%,#000 90%);
+  clip-path:polygon(50% 4%,86% 92%,14% 92%)}
+.halftone::after{content:"";position:absolute;left:24%;right:24%;top:52%;height:9%;background:var(--orange);clip-path:polygon(10% 0,90% 0,100% 100%,0 100%)}
+.big{font:900 clamp(40px,7vw,88px)/.9 var(--display);letter-spacing:-.04em}
+.mid{font:800 clamp(22px,3vw,34px)/1 var(--display);letter-spacing:-.02em}
+.pad{padding:10px}
+.vert{writing-mode:vertical-rl;transform:rotate(180deg)}
+.dot{position:absolute;width:48%;aspect-ratio:1;border-radius:50%;background:var(--black);left:14%;top:22%}
+.pie{width:50%;aspect-ratio:1;border-radius:50%;background:conic-gradient(var(--black) 0 75%,var(--paper) 0);border:1.5px solid var(--black);margin:12% auto 0}
+h1{margin:0;font:900 clamp(46px,9vw,120px)/.86 var(--display);letter-spacing:-.05em}
+.intro{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:24px 48px;align-items:end}
+.intro p{margin:0;max-width:44ch;font-size:18px;line-height:1.45}
+.index{display:grid;border-top:2px solid var(--black)}
+.row{display:grid;grid-template-columns:90px minmax(0,1.1fr) minmax(0,1.6fr) 150px;border-bottom:1px solid var(--black);min-height:118px}
+.row>*{padding:16px;min-width:0}
+.row .num{background:var(--orange);font:900 44px/1 var(--display);display:flex;align-items:flex-end}
+.row.off .num{background:transparent;border-right:1px solid var(--black);color:var(--soft)}
+.row h2{margin:0;font:800 26px/1.05 var(--display);letter-spacing:-.02em;overflow-wrap:anywhere}
+.row p{margin:0;font-size:15.5px;max-width:52ch}
+.row .stat{border-left:1px solid var(--black);display:flex;flex-direction:column;justify-content:space-between}
+.row .stat b{font:900 34px/1 var(--display);letter-spacing:-.03em}
+.foot{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px;align-items:end}
+pre{margin:0;background:var(--black);color:var(--paper);padding:18px;font:14px/1.7 var(--mono);overflow-x:auto}
+@media (max-width:760px){
+  .poster{grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-rows:64px}
+  .poster .wide-only{display:none}
+  .intro,.foot{grid-template-columns:minmax(0,1fr)}
+  .row{grid-template-columns:64px minmax(0,1fr)}
+  .row .num{grid-row:span 3;font-size:30px}
+  .row .stat{border-left:0;padding-top:0}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="intro">
+    <h1>Cone<br>Sortium</h1>
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <span class="mono">CS 00 · 004 — ROS 2 · FORMULA STUDENT DRIVERLESS</span>
+      <p>Four real nodes in a joke of a repo. A car with nobody in it laps a track marked only by cones. These are the numbers that get it round.</p>
+    </div>
+  </div>
+
+  <div class="poster grain" role="img" aria-label="Collage of ConeSortium figures: 1.1 millisecond detection, 1.3 millisecond SLAM update, four byte-identical backends, one commit, around a halftone traffic cone.">
+    <div class="k" style="grid-column:2/4;grid-row:1"></div>
+    <div class="mono pad" style="grid-column:6/8;grid-row:1;text-align:right">00 01-004</div>
+    <div class="o pad" style="grid-column:2/3;grid-row:2/5"><span class="mono vert">PointCloud2 ——— cones</span></div>
+    <div class="k" style="grid-column:3/4;grid-row:2/4"></div>
+    <div class="g" style="grid-column:4/5;grid-row:1/3"></div>
+    <div class="halftone" style="grid-column:4/7;grid-row:2/6"></div>
+    <div class="o pad" style="grid-column:7/8;grid-row:2/3"><span class="mono">RTX 4060M</span></div>
+    <div class="mono pad wide-only" style="grid-column:1/2;grid-row:3;text-align:right">0 05</div>
+    <div class="o pad" style="grid-column:3/4;grid-row:4/5"><span class="mono">[ ]</span></div>
+    <div class="p pad hl" style="grid-column:7/9;grid-row:3/5;display:flex;flex-direction:column;justify-content:space-between"><span class="mono">cuCONERUSH · latency</span><span class="big">1.1</span><span class="mono">ms, never leaves the GPU</span></div>
+    <div class="o pad" style="grid-column:1/3;grid-row:5/7;display:flex;flex-direction:column;justify-content:space-between"><span class="mono">nodes that race</span><div class="pie"></div></div>
+    <div class="g" style="grid-column:3/4;grid-row:5/7"></div>
+    <div class="o" style="grid-column:6/8;grid-row:5/7"><div class="dot"></div><span class="mid" style="position:absolute;right:10px;bottom:8px">1.3 ms</span><span class="mono" style="position:absolute;right:10px;top:8px">EKF update · Orin</span></div>
+    <div class="k pad" style="grid-column:4/6;grid-row:6/8;display:flex;flex-direction:column;justify-content:space-between"><span class="mono">backends · byte-identical</span><span class="big" style="color:var(--orange)">4</span></div>
+    <div class="g o wide-only" style="grid-column:8/9;grid-row:5/7"></div>
+    <div class="p pad" style="grid-column:6/7;grid-row:7/8"><span class="mono">commits:</span> <span class="mid">1</span></div>
+    <div class="pad wide-only" style="grid-column:1/3;grid-row:7/9"><span class="big">5</span><br><span class="mono">stages to a cone</span></div>
+    <div class="k" style="grid-column:7/8;grid-row:7/9"></div>
+    <div class="o" style="grid-column:4/6;grid-row:8/9"></div>
+    <svg class="wide-only" style="grid-column:3/4;grid-row:8/9;width:100%;height:100%" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M0 30 18 34 30 60 44 52 58 80 70 74 86 90 100 92" fill="none" stroke="#2A2725" stroke-width="1.5" vector-effect="non-scaling-stroke"/></svg>
+  </div>
+
+  <div class="index">
+    <div class="row"><span class="num">1</span><h2><a href="https://github.com/leonardonels/cuda_cone_rush">cuCONERUSH</a></h2><p>GPU detection. XYZ filter, RANSAC ground segmentation, voxel clustering and cone-size filtering on CUDA buffers. Markers carry the sensor's timestamp.</p><div class="stat"><span class="mono">RTX 4060M</span><b>1.1 ms</b></div></div>
+    <div class="row"><span class="num">2</span><h2><a href="https://github.com/leonardonels/cuda_cone_fused">cuCONEFUSED</a></h2><p>EKF-SLAM. Lap 1 builds the map, lap 2 onward updates only the 3×3 pose block and drags FAST-LIMO back to reality.</p><div class="stat"><span class="mono">Orin Nano</span><b>1.3 ms</b></div></div>
+    <div class="row"><span class="num">3</span><h2><a href="https://github.com/leonardonels/cuda_cone_stellation">cuCONESTELLATION</a></h2><p>Triangulates the cone map and grows a centerline. Four implementations, which agree byte for byte and disagree about everything else.</p><div class="stat"><span class="mono">backends</span><b>4</b></div></div>
+    <div class="row off"><span class="num">—</span><h2><a href="https://github.com/leonardonels/cone_poser">CONEPOSER</a></h2><p>T<sub>global</sub> = T<sub>odom</sub> · T<sub>marker</sub>. Retired from racing, kept for RViz as a ground-truth reference.</p><div class="stat"><span class="mono">commits</span><b>1</b></div></div>
+  </div>
+
+  <div class="foot">
+    <pre>git clone --recurse-submodules https://github.com/leonardonels/ConeSortium
+colcon build</pre>
+    <span class="mono">THE CONES REMAIN<br>UNLICENSED AND AT LARGE</span>
+  </div>
+</div>
+</body>
+</html>

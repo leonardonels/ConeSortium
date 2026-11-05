@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ConeSortium · The Board</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;900&family=Archivo+Narrow:wght@400;600&display=swap" rel="stylesheet">
+<style>
+/* Direction 02 · the ROS graph as an investigation board: nodes are suspects, topics are the strings */
+:root{
+  --wall:#DEDBD3; --wall-2:#CFCBC1; --ink:#161615; --tag:#E2531F; --string:#D9541E; --thread:#8C8A84; --bar:#1A1A19; --muted:#55534E;
+  --display:'Archivo','Arial Narrow',Arial,sans-serif; --body:'Archivo Narrow','Arial Narrow',Arial,sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{margin:0;color:var(--ink);font:15px/1.35 var(--body);
+  background:var(--wall) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.012 .02' numOctaves='4'/%3E%3CfeColorMatrix values='0 0 0 0 .2 0 0 0 0 .19 0 0 0 0 .17 0 0 0 .22 0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)'/%3E%3C/svg%3E")}
+a{color:inherit}
+.wrap{max-width:1240px;margin:0 auto;padding:32px max(16px,env(safe-area-inset-right,0px)) 56px max(16px,env(safe-area-inset-left,0px))}
+.board{position:relative;height:1220px}
+#strings{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}
+#strings line{stroke-width:1.6}
+#strings .s{stroke:var(--string)}
+#strings .t{stroke:var(--thread);stroke-width:1.1}
+#strings .dim{opacity:.15}
+.n{position:absolute;width:230px;display:flex;flex-direction:column;gap:6px}
+.n h2,.n h3{margin:0;font:900 30px/1 var(--display);letter-spacing:-.01em}
+.n h3{font-size:24px;font-weight:700}
+.n p{margin:0;color:var(--muted);font-size:14.5px}
+.n .facts{font-size:12px;color:var(--ink);display:grid;gap:1px}
+.tagged{position:relative;align-self:flex-start}
+.tag{background:var(--tag);color:#fff;padding:8px 40px 8px 10px;font:500 12px/1.1 var(--display);display:block}
+.tag b{display:block;font:900 30px/1 var(--display);color:#fff;letter-spacing:-.01em}
+.tag i{position:absolute;right:0;top:0;background:#fff;color:var(--ink);font:900 16px/1 var(--display);font-style:normal;padding:5px 8px}
+.photo{width:150px;height:150px;display:block;filter:grayscale(1) contrast(1.15);background:#2a2a28}
+.photo.sm{width:62px;height:62px}
+.n.big .photo{width:190px;height:190px}
+.x{background:var(--bar);color:var(--bar);cursor:pointer;padding:0 2px;box-decoration-break:clone;-webkit-box-decoration-break:clone;transition:background .3s,color .3s}
+.x.on,.open .x{background:#F2D65A;color:var(--ink)}
+.n:hover{z-index:3}
+.n.place h3{font-size:26px}
+.title{position:absolute;left:0;bottom:0;display:flex;flex-direction:column;gap:6px}
+.title h1{margin:0;font:900 clamp(56px,8vw,104px)/.88 var(--display);letter-spacing:-.035em}
+.title h1 span{font:700 18px var(--display);color:var(--tag);letter-spacing:0;vertical-align:baseline;margin-left:14px}
+.title small{font:600 12px var(--body);letter-spacing:.3em;text-transform:uppercase}
+.title small a{color:var(--tag)}
+button{font:700 13px var(--display);letter-spacing:.14em;text-transform:uppercase;background:var(--ink);color:var(--wall);border:0;padding:12px 18px;cursor:pointer;align-self:flex-start}
+button:focus-visible,.x:focus-visible{outline:2px solid var(--tag);outline-offset:2px}
+.legend{position:absolute;right:0;bottom:12px;font:600 12px var(--body);letter-spacing:.12em;text-transform:uppercase;display:grid;gap:6px;justify-items:end}
+.legend span::before{content:"";display:inline-block;width:28px;height:2px;margin-right:8px;vertical-align:middle;background:var(--string)}
+.legend span.t::before{background:var(--thread)}
+@media (max-width:1000px){
+  .board{height:auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:36px 24px}
+  .n,.title,.legend{position:static!important;width:auto}
+  #strings{display:none}
+  .title{grid-column:1/-1;order:-1}
+  .legend{display:none}
+  .tag b{font-size:24px;overflow-wrap:anywhere}
+}
+@media (prefers-reduced-motion:reduce){.x{transition:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="board" id="board">
+  <svg id="strings" aria-hidden="true"></svg>
+
+  <div class="n big" id="rush" style="left:2%;top:15%">
+    <div class="tagged"><span class="tag">GPU detection<b>cuCONERUSH</b><i>1</i></span></div>
+    <svg class="photo" data-pin viewBox="0 0 100 100"><rect width="100" height="100" fill="#3b3b39"/><g fill="#d8d8d4" opacity=".9"><circle cx="20" cy="30" r="1.4"/><circle cx="28" cy="70" r="1.4"/><circle cx="74" cy="22" r="1.4"/><circle cx="82" cy="64" r="1.4"/><circle cx="12" cy="52" r="1.4"/><circle cx="88" cy="40" r="1.4"/></g><path d="M50 18 72 86H28Z" fill="#e9e9e4"/><path d="M38 56h24v8H38z" fill="#3b3b39"/><path d="M0 88h100v12H0z" fill="#222"/></svg>
+    <div class="facts"><span>Born: RTX 4060 Mobile</span><span>Latency: 1.1 ms</span></div>
+    <p>Finds cones in the LiDAR cloud without leaving the GPU. Asked the CPU for help on <span class="x" tabindex="0">no occasion</span>. Far cones vanish if <span class="x" tabindex="0">maxHeight</span> sits under the ground plane.</p>
+  </div>
+
+  <div class="n big" id="fused" style="left:34%;top:2%">
+    <div class="tagged"><span class="tag">EKF-SLAM<b>cuCONEFUSED</b><i>2</i></span></div>
+    <svg class="photo" data-pin viewBox="0 0 100 100"><rect width="100" height="100" fill="#3b3b39"/><path d="M14 60C14 30 40 18 58 24S90 46 84 66 52 86 34 80 14 74 14 60Z" fill="none" stroke="#e9e9e4" stroke-width="2" stroke-dasharray="3 4"/><g fill="#e9e9e4"><circle cx="20" cy="44" r="3"/><circle cx="36" cy="24" r="3"/><circle cx="64" cy="22" r="3"/><circle cx="86" cy="48" r="3"/><circle cx="76" cy="80" r="3"/><circle cx="40" cy="86" r="3"/></g><path d="M50 50l9 3-9 3z" fill="#fff"/></svg>
+    <div class="facts"><span>Lap 1: builds the map</span><span>Lap 2+: localises on it</span></div>
+    <p>Keeps P and x on the device for the whole run: 15 ms on a CPU core, 1.3 ms on an Orin Nano. Corrects <span class="x" tabindex="0">the expensive sensor</span>, which is not informed.</p>
+  </div>
+
+  <div class="n big" id="stel" style="left:68%;top:13%">
+    <div class="tagged"><span class="tag">Local planner<b>cuCONESTELLATION</b><i>3</i></span></div>
+    <svg class="photo" data-pin viewBox="0 0 100 100"><rect width="100" height="100" fill="#3b3b39"/><g fill="none" stroke="#e9e9e4" stroke-width="1.2"><path d="M10 20 34 14 30 44Z M34 14 60 18 30 44Z M60 18 56 50 30 44Z M60 18 88 26 56 50Z M88 26 84 60 56 50Z M30 44 56 50 40 78Z M56 50 84 60 70 86Z M56 50 70 86 40 78Z M10 20 30 44 12 70Z M30 44 40 78 12 70Z"/></g><path d="M18 42Q40 34 46 46T76 58" fill="none" stroke="#fff" stroke-width="3"/></svg>
+    <div class="facts"><span>Backends: 4</span><span>Disagreement: 0 bytes</span></div>
+    <p>Triangulates the cone map and grows a centerline it calls <span class="x" tabindex="0">the Way</span>. Only difference between backends: <span class="x" tabindex="0">how hot the Orin got</span>.</p>
+  </div>
+
+  <div class="n" id="poser" style="left:73%;top:58%">
+    <div class="tagged"><span class="tag" style="background:var(--ink)">Retired<b>CONEPOSER</b><i>4</i></span></div>
+    <svg class="photo" data-pin viewBox="0 0 100 100"><rect width="100" height="100" fill="#3b3b39"/><text x="50" y="58" text-anchor="middle" fill="#e9e9e4" font-family="Archivo,Arial" font-weight="900" font-size="20">T · T</text><path d="M24 30v40M76 30v40" stroke="#e9e9e4" stroke-width="3"/></svg>
+    <p>T<sub>global</sub> = T<sub>odom</sub> · T<sub>marker</sub>. One commit, ever, titled <span class="x" tabindex="0">"first commit"</span>.</p>
+  </div>
+
+  <div class="n place" id="cones" style="left:24%;top:42%">
+    <h3>The Cones</h3>
+    <p>Blue on the left, yellow on the right. Stationary, cheap, plastic. The only witnesses who <span class="x" tabindex="0">never change their story</span>.</p>
+  </div>
+
+  <div class="n" id="cpu" style="left:3%;top:55%">
+    <svg class="photo sm" data-pin viewBox="0 0 100 100"><rect width="100" height="100" fill="#3b3b39"/><rect x="28" y="28" width="44" height="44" fill="none" stroke="#e9e9e4" stroke-width="4"/><path d="M38 20v8M50 20v8M62 20v8M38 72v8M50 72v8M62 72v8M20 38h8M20 50h8M20 62h8M72 38h8M72 50h8M72 62h8" stroke="#e9e9e4" stroke-width="3"/></svg>
+    <h3>The CPU</h3>
+    <p>Offered to help. Was told it would be <span class="x" tabindex="0">embarrassing for everyone</span>.</p>
+  </div>
+
+  <div class="n" id="sensor" style="left:50%;top:37%">
+    <svg class="photo sm" data-pin viewBox="0 0 100 100"><rect width="100" height="100" fill="#3b3b39"/><rect x="34" y="26" width="32" height="50" rx="6" fill="#e9e9e4"/><path d="M34 44h32" stroke="#3b3b39" stroke-width="5"/></svg>
+    <h3>FAST-LIMO</h3>
+    <p>The expensive odometry. Drifts. Believes it does not.</p>
+  </div>
+
+  <div class="n" id="orin" style="left:52%;top:60%">
+    <svg class="photo sm" data-pin viewBox="0 0 100 100"><rect width="100" height="100" fill="#3b3b39"/><rect x="18" y="34" width="64" height="34" fill="#e9e9e4"/><path d="M26 34V24M38 34V20M50 34V24M62 34V18M74 34V24" stroke="#e9e9e4" stroke-width="3"/></svg>
+    <h3>The Orin</h3>
+    <p>Hosts all four planner backends. Runs warm about it.</p>
+  </div>
+
+  <div class="n place" id="rviz" style="left:80%;top:84%;width:180px">
+    <h3>RViz</h3>
+    <p>Where the retired one still shows up, as a ground-truth reference.</p>
+  </div>
+
+  <div class="n place" id="track" style="left:28%;top:73%">
+    <h3>/track frame</h3>
+    <p>Where the cones are filed after lap 1 and never moved again.</p>
+  </div>
+
+  <div class="title">
+    <button type="button" id="open" aria-pressed="false">Release the black bars</button>
+    <h1>The Cone-<br>Sortium<span>the full graph</span></h1>
+    <small>Four ROS 2 nodes · Formula Student driverless · <a href="https://github.com/leonardonels/ConeSortium">archive</a></small>
+  </div>
+  <div class="legend"><span>topic · data flows</span><span class="t">association</span></div>
+</div>
+</div>
+<script>
+(function(){
+  var board=document.getElementById('board'),svg=document.getElementById('strings');
+  var links=[['rush','fused','s'],['fused','stel','s'],['rush','poser','s'],['poser','rviz','s'],['fused','track','s'],
+             ['cpu','rush','t'],['sensor','fused','t'],['orin','stel','t'],['cones','rush','t'],['cones','fused','t'],['cones','stel','t'],['track','stel','t']];
+  function pin(id){var n=document.getElementById(id),p=n.querySelector('[data-pin]')||n.querySelector('h3'),b=board.getBoundingClientRect(),r=p.getBoundingClientRect();return[r.left-b.left+r.width/2,r.top-b.top+r.height/2]}
+  function draw(){
+    if(getComputedStyle(svg).display==='none')return;
+    svg.innerHTML='';
+    links.forEach(function(l){var a=pin(l[0]),b=pin(l[1]),e=document.createElementNS('http://www.w3.org/2000/svg','line');
+      e.setAttribute('x1',a[0]);e.setAttribute('y1',a[1]);e.setAttribute('x2',b[0]);e.setAttribute('y2',b[1]);e.setAttribute('class',l[2]);e.dataset.a=l[0];e.dataset.b=l[1];svg.appendChild(e)});
+  }
+  draw();addEventListener('resize',draw);document.fonts&&document.fonts.ready.then(draw);
+  [].forEach.call(board.querySelectorAll('.n'),function(n){
+    n.addEventListener('mouseenter',function(){[].forEach.call(svg.children,function(l){l.classList.toggle('dim',l.dataset.a!==n.id&&l.dataset.b!==n.id)})});
+    n.addEventListener('mouseleave',function(){[].forEach.call(svg.children,function(l){l.classList.remove('dim')})});
+  });
+  [].forEach.call(document.querySelectorAll('.x'),function(x){x.setAttribute('role','button');
+    function t(){x.classList.toggle('on')}x.addEventListener('click',t);x.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();t()}})});
+  var b=document.getElementById('open');b.addEventListener('click',function(){var o=document.body.classList.toggle('open');b.textContent=o?'Restore the black bars':'Release the black bars';b.setAttribute('aria-pressed',o)});
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ConeSortium · Works</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+/* Direction 04 · constructivist industrial poster: the cone as monument, LiDAR rings as the radio waves */
+:root{
+  --sky:#E6DCC6; --sky-2:#D6CBB2; --red:#E2502A; --ink:#1C1A17; --steel:#7A7468; --cream:#F1EADB;
+  --display:'Big Shoulders Display',Impact,'Arial Narrow',sans-serif; --mono:'IBM Plex Mono',ui-monospace,monospace;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--sky);color:var(--ink);font:15px/1.55 var(--mono)}
+a{color:inherit}
+.wrap{max-width:1280px;margin:0 auto;padding:24px max(16px,env(safe-area-inset-right,0px)) 64px max(16px,env(safe-area-inset-left,0px));display:flex;flex-direction:column;gap:56px}
+.poster{position:relative;aspect-ratio:16/9;max-width:100%;overflow:hidden;background:linear-gradient(180deg,var(--sky) 0 55%,var(--sky-2));border:2px solid var(--ink)}
+.poster svg{position:absolute;inset:0;width:100%;height:100%}
+.side{position:absolute;right:0;top:0;bottom:0;width:5.2%;background:var(--ink);color:var(--cream);display:flex;align-items:flex-end;justify-content:center;padding-bottom:3%}
+.side span{writing-mode:vertical-rl;transform:rotate(180deg);font:900 clamp(14px,2.2vw,30px)/1 var(--display);letter-spacing:.06em}
+.side span em{color:var(--red);font-style:normal}
+.top-left{position:absolute;left:0;top:0;width:3.4%;height:100%;border-right:1px solid var(--ink);display:flex;justify-content:center;padding-top:2%}
+.top-left span{writing-mode:vertical-rl;transform:rotate(180deg);font:600 clamp(8px,.9vw,11px) var(--mono)}
+.title{position:absolute;left:4.5%;bottom:5%;display:flex;align-items:flex-end;gap:2%}
+.title h1{margin:0;font:900 clamp(44px,11vw,152px)/.8 var(--display);letter-spacing:-.01em;text-transform:uppercase;text-shadow:.04em .04em 0 var(--cream),.07em .07em 0 var(--ink)}
+.title .o{display:inline-block;width:.78em;height:.78em;border-radius:50%;background:var(--red);vertical-align:-.02em;position:relative}
+.title .o::after{content:"";position:absolute;inset:22%;border-radius:50%;background:var(--sky)}
+.slogan{position:absolute;left:40%;top:27%;font:900 clamp(10px,1.4vw,18px)/1.05 var(--display);letter-spacing:.04em;text-transform:uppercase;max-width:12em}
+.caption{position:absolute;right:8%;top:4%;width:30%;text-align:right;font:400 clamp(7px,.8vw,10px)/1.3 var(--mono);color:var(--ink)}
+h2{margin:0;font:900 clamp(40px,6vw,72px)/.9 var(--display);text-transform:uppercase;text-wrap:balance}
+.plan{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:3px solid var(--ink)}
+.plan article{padding:20px 18px 24px;border-right:1px solid var(--ink);display:flex;flex-direction:column;gap:12px;position:relative;min-width:0}
+.plan article:last-child{border-right:0}
+.plan .n{font:900 120px/.8 var(--display);color:transparent;-webkit-text-stroke:2px var(--ink)}
+.plan article:nth-child(-n+3) .n{color:var(--red);-webkit-text-stroke:0}
+.plan h3{margin:0;font:900 30px/1 var(--display);text-transform:uppercase;overflow-wrap:anywhere}
+.plan h3 a{text-decoration:none}
+.plan h3 a:hover{color:var(--red)}
+.plan p{margin:0;font-size:14px}
+.plan .quota{margin-top:auto;padding-top:12px;border-top:1px dashed var(--steel);font:600 12px var(--mono);letter-spacing:.08em;text-transform:uppercase;display:flex;justify-content:space-between;gap:8px}
+.plan .quota b{font:900 26px/1 var(--display);color:var(--ink)}
+.band{position:relative;background:var(--red);color:var(--cream);padding:28px clamp(18px,4vw,48px);clip-path:polygon(0 0,100% 18%,100% 100%,0 100%);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;align-items:end;padding-top:64px}
+.band pre{margin:0;background:var(--ink);color:var(--cream);padding:16px;font:14px/1.7 var(--mono);overflow-x:auto}
+.band p{margin:0;font:900 clamp(26px,3.6vw,44px)/.95 var(--display);text-transform:uppercase}
+@media (max-width:860px){
+  .poster{aspect-ratio:3/4}
+  .caption{width:60%}
+  .plan{grid-template-columns:1fr 1fr}
+  .plan article:nth-child(2){border-right:0}
+  .plan article:nth-child(n+3){border-top:1px solid var(--ink)}
+  .band{grid-template-columns:minmax(0,1fr)}
+  .slogan{display:none}
+}
+@media (max-width:480px){.plan{grid-template-columns:minmax(0,1fr)}.plan article{border-right:0;border-top:1px solid var(--ink)}.plan .n{font-size:84px}}
+@keyframes sweep{to{transform:rotate(360deg)}}
+#beam{transform-origin:var(--cx) var(--cy);animation:sweep 6s linear infinite}
+@media (prefers-reduced-motion:reduce){#beam{animation:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="poster" id="poster" role="img" aria-label="Constructivist poster: a giant striped traffic cone stands like a monument on a red diagonal ground, circled by concentric LiDAR rings, with a row of small cones receding to the horizon.">
+    <svg id="art" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <defs><pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><path d="M0 0v6" stroke="#1C1A17" stroke-width="1.4"/></pattern></defs>
+      <g id="rings" fill="none" stroke="#1C1A17" stroke-width="1" stroke-dasharray="2 6" opacity=".55"></g>
+      <path id="beam" d="M1010 360 L1010 -400 A760 760 0 0 1 1300 -320 Z" fill="#1C1A17" opacity=".06" style="--cx:1010px;--cy:360px"/>
+      <!-- horizon of cones -->
+      <g fill="#7A7468"><path d="M70 520h1350v6H70z"/></g>
+      <g id="row" fill="#1C1A17" opacity=".7"></g>
+      <!-- red ground -->
+      <path d="M0 900 L0 760 L1600 430 L1600 900Z" fill="#E2502A"/>
+      <path d="M0 900 L0 760 L1600 430 L1600 470 L0 800Z" fill="#1C1A17" opacity=".14"/>
+      <!-- monument cone + shadow -->
+      <path d="M1046 300 L1240 840 L1500 840 Z" fill="#1C1A17" opacity=".25"/>
+      <path d="M1010 300 L1180 840 L840 840Z" fill="#3A342C"/>
+      <path d="M1010 300 L1180 840 L1010 840Z" fill="#1C1A17"/>
+      <path d="M948 498 L1072 498 L1100 588 L920 588Z" fill="#F1EADB"/>
+      <path d="M1010 498 L1072 498 L1100 588 L1010 588Z" fill="#D9CFBC"/>
+      <path d="M896 664 L1124 664 L1146 734 L874 734Z" fill="#F1EADB" opacity=".9"/>
+      <path d="M800 840h420v26H800z" fill="#1C1A17"/>
+      <!-- blueprint insets -->
+      <g transform="translate(90 40)" fill="none" stroke="#1C1A17" stroke-width="1.2">
+        <rect width="300" height="180" fill="#E6DCC6"/>
+        <path d="M30 150 L70 40 L110 150Z M24 150h92 M52 96h36"/>
+        <circle cx="200" cy="96" r="54"/><circle cx="200" cy="96" r="12"/><path d="M146 96h108M200 42v108"/>
+        <path d="M30 166h80M30 162v8M110 162v8" stroke-width=".8"/>
+        <text x="44" y="178" font-family="IBM Plex Mono" font-size="10" fill="#1C1A17" stroke="none">228 mm</text>
+        <text x="150" y="172" font-family="IBM Plex Mono" font-size="10" fill="#1C1A17" stroke="none">PLAN · H 325</text>
+      </g>
+      <g transform="translate(90 240)"><rect width="10" height="10" fill="#1C1A17"/><rect y="18" width="10" height="10" fill="#1C1A17"/><rect y="36" width="10" height="10" fill="#1C1A17"/><rect y="54" width="10" height="10" fill="#E2502A"/></g>
+      <!-- the car -->
+      <g transform="translate(1240 470) rotate(-11)"><path d="M0 0h110l18 10v8H-6v-10z" fill="#1C1A17"/><circle cx="18" cy="22" r="9" fill="#1C1A17"/><circle cx="98" cy="22" r="9" fill="#1C1A17"/><path d="M40 -10h30l6 10H34z" fill="#E2502A"/></g>
+      <path d="M640 226h190" stroke="#E2502A" stroke-width="8"/>
+    </svg>
+    <div class="top-left"><span>CS · 004 · ROS 2 · FSD</span></div>
+    <div class="title"><h1>C<span class="o"></span>NE<br>SORTIUM</h1></div><span class="slogan">Comrades, the cones do not drift. Neither shall we.</span>
+    <p class="caption">Four real ROS 2 nodes, written for Formula Student driverless racing, where a student-built car with nobody in it laps a track marked only by cones. Blue on the left, yellow on the right.</p>
+    <div class="side"><span>CONE<em>SORTIUM</em> · 2024–2026</span></div>
+  </div>
+
+  <h2>The plan, in four stages</h2>
+  <div class="plan">
+    <article><span class="n">1</span><h3><a href="https://github.com/leonardonels/cuda_cone_rush">cuCONERUSH</a></h3><p>Detect. Point cloud in, cone markers out, on CUDA buffers the whole way: filter, RANSAC ground, voxel clusters, cone-size check.</p><div class="quota"><span>Quota met in</span><b>1.1 ms</b></div></article>
+    <article><span class="n">2</span><h3><a href="https://github.com/leonardonels/cuda_cone_fused">cuCONEFUSED</a></h3><p>Map. Lap 1 records every cone. From lap 2 the map is frozen and the cones correct the odometry's drift.</p><div class="quota"><span>Full update</span><b>1.3 ms</b></div></article>
+    <article><span class="n">3</span><h3><a href="https://github.com/leonardonels/cuda_cone_stellation">cuCONESTELLATION</a></h3><p>Plan. Triangulate the cone map, grow a centerline through it. Four backends, one byte-identical answer.</p><div class="quota"><span>Backends</span><b>4</b></div></article>
+    <article><span class="n">4</span><h3><a href="https://github.com/leonardonels/cone_poser">CONEPOSER</a></h3><p>Retired with honours. One matrix multiply, kept to show the cones in RViz as a ground-truth reference.</p><div class="quota"><span>Commits</span><b>1</b></div></article>
+  </div>
+
+  <div class="band">
+    <p>Clone with submodules.<br>The flag is not optional.</p>
+    <pre>git clone --recurse-submodules \
+  https://github.com/leonardonels/ConeSortium
+colcon build</pre>
+  </div>
+</div>
+<script>
+(function(){
+  var ns='http://www.w3.org/2000/svg',rings=document.getElementById('rings'),row=document.getElementById('row');
+  for(var r=70;r<1300;r+=52){var c=document.createElementNS(ns,'circle');c.setAttribute('cx',1010);c.setAttribute('cy',360);c.setAttribute('r',r);rings.appendChild(c)}
+  for(var i=0;i<22;i++){var x=80+i*60,h=26-i*.7,p=document.createElementNS(ns,'path');p.setAttribute('d','M'+x+' 520 l'+(h*.35)+' -'+h+' l'+(h*.35)+' '+h+'z');row.appendChild(p)}
+})();
+</script>
+</body>
+</html>

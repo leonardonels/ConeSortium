@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ConeSortium · Systems</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Direction 05 · deadpan defence-contractor product page, selling four ROS nodes with total sincerity */
+:root{
+  --bg:#DADAD5; --panel:#E6E6E1; --ink:#161616; --orange:#FF5317; --soft:#6E6E68; --line:#A9A9A2;
+  --display:'Chakra Petch','Arial Black',sans-serif; --body:'Instrument Sans','Helvetica Neue',Arial,sans-serif; --mono:'JetBrains Mono',ui-monospace,monospace;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 var(--body)}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1240px;margin:0 auto;padding:0 max(16px,env(safe-area-inset-right,0px)) 72px max(16px,env(safe-area-inset-left,0px))}
+.mono{font:400 12px/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase}
+nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:20px;border-bottom:1px solid var(--ink);flex-wrap:wrap}
+nav .links{display:flex;gap:28px;flex-wrap:wrap}
+nav a:hover{color:var(--orange)}
+.hero{position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr) minmax(0,1fr);gap:24px;padding-top:12px;min-height:700px}
+.word{grid-column:1/-1;position:relative;margin:0;font:700 clamp(84px,19vw,260px)/.82 var(--display);letter-spacing:-.02em;color:var(--orange);white-space:nowrap;text-align:center}
+.word::after{content:attr(data-w);position:absolute;left:0;right:0;top:0;color:transparent;-webkit-text-stroke:1px var(--ink);transform:translate(1.2%,4%);opacity:.5;pointer-events:none}
+.word span{position:absolute;left:50%;top:58%;transform:translateX(-50%);font:500 12px var(--mono);letter-spacing:.14em;color:var(--ink);background:var(--bg);padding:2px 8px;white-space:nowrap}
+.left{display:flex;flex-direction:column;gap:22px;padding-top:24px;z-index:1}
+.left h1{margin:0;font:500 clamp(48px,6.4vw,92px)/.95 var(--body);letter-spacing:-.04em}
+.left p{margin:0;max-width:34ch;font:13px/1.55 var(--mono)}
+.left h2{margin:auto 0 0;font:500 clamp(22px,2.4vw,30px)/1.1 var(--body);letter-spacing:-.02em}
+.car{position:relative;margin-top:-170px;display:flex;justify-content:center}
+.car svg{width:100%;max-width:400px;height:auto;position:relative;z-index:1}
+.car::before{content:"";position:absolute;left:50%;top:52%;width:118%;aspect-ratio:1;transform:translate(-50%,-50%);border:1.5px solid var(--orange);border-radius:50%;opacity:.8}
+.right{display:flex;flex-direction:column;gap:28px;padding-top:24px;align-items:flex-end;text-align:right;z-index:1}
+.right .callout{font:600 clamp(20px,2.4vw,30px)/1.15 var(--display);letter-spacing:.08em;text-transform:uppercase}
+.ruler{display:flex;flex-direction:column;gap:9px;align-items:flex-end}
+.ruler i{display:block;height:1px;width:14px;background:var(--ink)}
+.ruler i:nth-child(5n){width:26px}
+.ruler i.hot{background:var(--orange);height:6px;width:26px}
+.spec{font:12px/1.7 var(--mono);text-transform:uppercase;letter-spacing:.06em}
+.spec b{color:var(--orange);font-weight:500}
+.cta{display:inline-flex;gap:10px;align-items:center;background:var(--ink);color:var(--bg);padding:14px 20px;font:500 13px var(--mono);letter-spacing:.1em;text-transform:uppercase}
+.cta:hover{background:var(--orange);color:var(--ink)}
+.cta:focus-visible,nav a:focus-visible{outline:2px solid var(--orange);outline-offset:3px}
+section{padding-top:72px;display:flex;flex-direction:column;gap:28px}
+.shead{display:flex;justify-content:space-between;align-items:end;gap:16px;border-bottom:1px solid var(--ink);padding-bottom:12px;flex-wrap:wrap}
+.shead h3{margin:0;font:500 clamp(32px,4vw,52px)/1 var(--body);letter-spacing:-.03em}
+.mods{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.mod{background:var(--panel);padding:20px;display:flex;flex-direction:column;gap:14px;border-top:3px solid var(--ink);min-width:0}
+.mod.live{border-top-color:var(--orange)}
+.mod .id{display:flex;justify-content:space-between}
+.mod h4{margin:0;font:700 22px/1.05 var(--display);letter-spacing:.02em;overflow-wrap:anywhere}
+.mod p{margin:0;font-size:14.5px;color:#333}
+.mod dl{margin:auto 0 0;display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 12px;font:12px/1.5 var(--mono);border-top:1px solid var(--line);padding-top:12px}
+.mod dt{color:var(--soft);text-transform:uppercase}
+.mod dd{margin:0;text-align:right}
+.flow{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));align-items:center;gap:0}
+.flow div{border:1px solid var(--ink);padding:14px;font:12px/1.4 var(--mono);text-transform:uppercase;letter-spacing:.06em;min-height:84px;display:flex;flex-direction:column;justify-content:space-between;margin-left:-1px}
+.flow div b{font:700 18px var(--display);letter-spacing:.02em;text-transform:none}
+.flow div.o{background:var(--orange)}
+pre{margin:0;background:var(--ink);color:var(--bg);padding:20px;font:14px/1.7 var(--mono);overflow-x:auto}
+@media (max-width:980px){
+  .hero{grid-template-columns:minmax(0,1fr);min-height:0;overflow:hidden}
+  .word{font-size:clamp(64px,22vw,200px)}
+  .car{margin-top:0;order:3}
+  .right{align-items:flex-start;text-align:left;order:4}
+  .ruler{display:none}
+  .mods{grid-template-columns:1fr 1fr}
+  .flow{grid-template-columns:1fr 1fr}
+  .flow div{margin:-1px 0 0 -1px}
+}
+@media (max-width:520px){.mods{grid-template-columns:minmax(0,1fr)}nav .links{gap:16px}.word span{display:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav><span class="mono" style="letter-spacing:.2em">CONESORTIUM SYSTEMS</span><span class="links mono"><a href="#modules">Modules</a><a href="#action">In action</a><a href="#install">Install</a></span><a class="mono" href="https://github.com/leonardonels/ConeSortium">&gt;&gt;&gt; We're racing</a></nav>
+
+  <div class="hero">
+    <p class="word" data-w="CONES" aria-hidden="true">CONES<span>DRIVERLESS PERCEPTION UNIT</span></p>
+    <div class="left">
+      <h1>Form<br>Follows<br>Track ®</h1>
+      <p>A precision-built ROS 2 stack that merges a car with nobody in it, a LiDAR, and several hundred stationary plastic cones.</p>
+      <h2>Engineered for zero drift</h2>
+    </div>
+    <div class="car">
+      <svg viewBox="0 0 300 520" role="img" aria-label="Top-down technical render of a Formula Student driverless car with a LiDAR on its main hoop.">
+        <g fill="#EDEDE8" stroke="#161616" stroke-width="1.4">
+          <path d="M40 40h220v26H40z"/><path d="M60 36h180v8H60z" fill="#d0d0ca"/>
+          <rect x="22" y="92" width="44" height="84" rx="10" fill="#2a2a2a"/><rect x="234" y="92" width="44" height="84" rx="10" fill="#2a2a2a"/>
+          <rect x="16" y="350" width="52" height="96" rx="10" fill="#2a2a2a"/><rect x="232" y="350" width="52" height="96" rx="10" fill="#2a2a2a"/>
+          <path d="M66 134h40M194 134h40M68 398h44M188 398h44" stroke-width="3"/>
+          <path d="M150 18 C170 60 176 120 178 190 L210 230 L214 350 C214 410 200 450 182 470 L118 470 C100 450 86 410 86 350 L90 230 L122 190 C124 120 130 60 150 18Z"/>
+          <path d="M126 210h48l8 70h-64z" fill="#161616"/>
+          <circle cx="150" cy="300" r="15" fill="#161616"/><circle cx="150" cy="300" r="7" fill="#FF5317" stroke="none"/>
+          <path d="M98 250v90M202 250v90" stroke-dasharray="2 5"/>
+          <path d="M120 360h60M120 372h60M120 384h60M120 396h60M120 408h60" stroke-width="1"/>
+          <path d="M44 470h212v34H44z"/><path d="M60 504h180v8H60z" fill="#d0d0ca"/>
+          <path d="M140 90l10 -8 10 8M140 104l10 -8 10 8M140 118l10 -8 10 8" fill="none" stroke-width="2"/>
+        </g>
+        <text x="150" y="440" text-anchor="middle" font-family="Chakra Petch" font-weight="700" font-size="22" fill="#FF5317">CS4</text>
+      </svg>
+    </div>
+    <div class="right">
+      <span class="callout">Embedded CUDA<br>perception</span>
+      <div class="ruler" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="hot"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      <div class="spec">Detection <b>1.1 ms</b><br>SLAM update <b>1.3 ms</b><br>Planner backends <b>4</b><br>Driver <b>none</b></div>
+      <a class="cta" href="#install">Deploy the stack →</a>
+    </div>
+  </div>
+
+  <section id="modules">
+    <div class="shead"><h3>Modules</h3><span class="mono">3 in service · 1 retired</span></div>
+    <div class="mods">
+      <a class="mod live" href="https://github.com/leonardonels/cuda_cone_rush"><span class="id mono"><span>CR-1</span><span>Detect</span></span><h4>cuCONERUSH</h4><p>LiDAR cone detection that keeps the point cloud on the GPU from arrival to marker.</p><dl><dt>RTX 4060M</dt><dd>1.1 ms</dd><dt>Orin Nano S.</dt><dd>10 ms</dd><dt>CPU help</dt><dd>declined</dd></dl></a>
+      <a class="mod live" href="https://github.com/leonardonels/cuda_cone_fused"><span class="id mono"><span>CF-2</span><span>Localise</span></span><h4>cuCONEFUSED</h4><p>EKF-SLAM. Builds the cone map on lap 1, then freezes it and corrects only the pose.</p><dl><dt>CPU core</dt><dd>15 ms</dd><dt>Orin Nano</dt><dd>1.3 ms</dd><dt>Covariance</dt><dd>device-resident</dd></dl></a>
+      <a class="mod live" href="https://github.com/leonardonels/cuda_cone_stellation"><span class="id mono"><span>CS-3</span><span>Plan</span></span><h4>cuCONESTELLATION</h4><p>Triangulates the cone map and grows the centerline the car follows.</p><dl><dt>Backends</dt><dd>4</dd><dt>Disagreement</dt><dd>0 bytes</dd><dt>Callsign</dt><dd>"the Way"</dd></dl></a>
+      <a class="mod" href="https://github.com/leonardonels/cone_poser"><span class="id mono"><span>CP-0</span><span>Retired</span></span><h4>CONEPOSER</h4><p>One matrix multiply. Puts cones in a global frame for RViz as a ground-truth view.</p><dl><dt>Method</dt><dd>T·T</dd><dt>Commits</dt><dd>1</dd><dt>Race duty</dt><dd>none</dd></dl></a>
+    </div>
+  </section>
+
+  <section id="action">
+    <div class="shead"><h3>In action</h3><span class="mono">PointCloud2 → /Odometry → centerline</span></div>
+    <div class="flow">
+      <div><span>Input</span><b>LiDAR</b></div>
+      <div class="o"><span>CR-1</span><b>Cones</b></div>
+      <div class="o"><span>CF-2</span><b>Pose + map</b></div>
+      <div class="o"><span>CS-3</span><b>Centerline</b></div>
+      <div><span>Output</span><b>Controller</b></div>
+    </div>
+  </section>
+
+  <section id="install">
+    <div class="shead"><h3>Install</h3><span class="mono">Licensed per package</span></div>
+    <pre>git clone --recurse-submodules https://github.com/leonardonels/ConeSortium
+cd ConeSortium &amp;&amp; colcon build</pre>
+  </section>
+</div>
+</body>
+</html>

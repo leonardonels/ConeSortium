@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ConeSortium · Card Catalog</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Direction 07 · a line-drawn card-catalogue drawer: every fact in the repo is an index card you pull */
+:root{
+  --bg:#E3E3E0; --card:#F4F4F1; --ink:#111; --soft:#6B6B66; --label:#F5E85A; --rule:#C9D4E3; --red:#C8402E;
+  --sans:'Geist','Helvetica Neue',Arial,sans-serif; --mono:'Geist Mono',ui-monospace,monospace;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 var(--sans)}
+a{color:inherit}
+.wrap{max-width:1160px;margin:0 auto;padding:40px max(16px,env(safe-area-inset-right,0px)) 64px max(16px,env(safe-area-inset-left,0px));display:flex;flex-direction:column;gap:36px}
+header{display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap}
+h1{margin:0;font:500 clamp(36px,5.4vw,64px)/1 var(--sans);letter-spacing:-.04em}
+header p{margin:0;max-width:46ch;color:#333}
+.desk{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:40px;align-items:start}
+.drawer{position:relative;padding:0 4% 0}
+.stack{position:relative;display:flex;flex-direction:column;padding-top:16px}
+.row{position:relative;height:31px}
+.row::before{content:"";position:absolute;left:0;right:0;top:12px;height:40px;border:1.3px solid var(--ink);border-bottom:0;border-radius:10px 10px 0 0;background:var(--card)}
+.row:nth-child(odd)::before{left:1%;right:-1%}
+.tab{position:absolute;top:-4px;height:26px;width:31%;display:flex;justify-content:space-between;align-items:center;gap:8px;padding:0 14px 0 20px;
+  background:var(--card);border:1.3px solid var(--ink);border-bottom:0;border-radius:9px 9px 0 0;font:400 13px var(--mono);cursor:pointer;color:var(--ink);transition:transform .2s;z-index:1}
+.tab span:last-child{font-family:var(--sans);font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tab.l{left:6%}.tab.c{left:36%}.tab.r{left:64%}
+.tab.div{background:var(--ink);color:var(--card);font-weight:500;width:22%;cursor:default;clip-path:polygon(9% 0,91% 0,100% 100%,0 100%);border-radius:0}
+.tab:not(.div):hover,.tab[aria-pressed="true"]{transform:translateY(-8px)}
+.tab[aria-pressed="true"]{background:var(--label)}
+.tab:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+.front{position:relative;margin:30px -4% 0;height:96px;border:1.3px solid var(--ink);background:var(--card);display:flex;align-items:center;justify-content:center}
+.front::before{content:"";position:absolute;left:-1.3px;right:-1.3px;top:-14px;height:14px;border:1.3px solid var(--ink);border-bottom:0;background:var(--bg);clip-path:polygon(3% 0,97% 0,100% 100%,0 100%)}
+.front b{background:var(--label);border:1.3px solid var(--ink);border-radius:8px;padding:4px 16px;font:500 15px var(--sans)}
+.pulled{position:sticky;top:24px;background:var(--card);border:1.3px solid var(--ink);border-radius:6px;aspect-ratio:5/3;max-width:100%;padding:22px 24px;
+  background-image:linear-gradient(var(--card) 0 64px,transparent 64px),repeating-linear-gradient(transparent 0 27px,var(--rule) 27px 28px);display:flex;flex-direction:column;gap:6px;min-height:300px}
+.pulled .top{display:flex;justify-content:space-between;font:400 12px var(--mono);color:var(--soft);border-bottom:1.5px solid var(--red);padding-bottom:10px}
+.pulled h2{margin:4px 0 0;font:500 28px/1.1 var(--sans);letter-spacing:-.02em}
+.pulled p{margin:0;font:400 15px/28px var(--mono);max-width:52ch}
+.pulled .see{margin-top:auto;font:400 12px var(--mono);color:var(--soft)}
+.pulled .see a{color:var(--ink)}
+.hint{font:400 12px var(--mono);color:var(--soft)}
+pre{margin:0;font:13.5px/1.7 var(--mono);background:var(--card);border:1.3px solid var(--ink);padding:16px;overflow-x:auto}
+@media (max-width:880px){.desk{grid-template-columns:minmax(0,1fr)}.pulled{position:static;order:-1;aspect-ratio:auto}}
+@media (max-width:520px){.tab{width:44%;padding:0 8px 0 12px;font-size:11px}.tab span:last-child{font-size:12px}.tab.l{left:2%}.tab.c{left:28%}.tab.r{left:54%}.tab.div{width:30%}}
+@media (prefers-reduced-motion:reduce){.tab{transition:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>The ConeSortium<br>card catalogue</h1>
+    <p>Four ROS 2 nodes for Formula Student driverless racing, filed card by card. A car with nobody in it laps a track marked only by cones; everything it needs to know is in this drawer. Pull a tab.</p>
+  </header>
+  <div class="desk">
+    <div class="drawer">
+      <div class="stack" id="stack"></div>
+      <div class="front"><b>the cone files</b></div>
+    </div>
+    <article class="pulled" id="card" aria-live="polite"></article>
+  </div>
+  <pre>git clone --recurse-submodules https://github.com/leonardonels/ConeSortium &amp;&amp; colcon build</pre>
+</div>
+<script>
+(function(){
+  var G='https://github.com/leonardonels/';
+  var cards=[
+    ['div','C','004'],
+    ['001','cuCONERUSH','Package · detection','GPU-first LiDAR cone detection. PointCloud2 in, cone markers out, through an XYZ filter, RANSAC ground segmentation and voxel clustering, without leaving the GPU. 1.1 ms on an RTX 4060 Mobile.',G+'cuda_cone_rush'],
+    ['002','cuCONEFUSED','Package · EKF-SLAM','Treats FAST-LIMO as a relative motion source and the cones as landmarks. Lap 1 builds the map; from lap 2 the map is rigid and only the 3×3 pose block updates.',G+'cuda_cone_fused'],
+    ['003','cuCONESTELLATION','Package · local planner','Triangulates the cone map and grows a centerline through it. Four implementations that agree byte for byte and disagree about everything else.',G+'cuda_cone_stellation'],
+    ['004','CONEPOSER','Package · retired','T_global = T_odom · T_marker. That is the whole package. Kept for RViz and Foxglove as a ground-truth reference.',G+'cone_poser'],
+    ['div','F','002'],
+    ['005','FAST-LIMO','Associate · odometry','The expensive sensor pipeline. Drifts. From lap 2 the cones quietly correct its self-confidence.'],
+    ['006','freeze_map','Parameter · cuCONEFUSED','On from lap 2. The map stops moving so the pose can be pinned to it. The legacy full-SLAM mode is still there, for anyone who enjoys watching a map slowly rotate.'],
+    ['div','M','002'],
+    ['007','maxHeight','Parameter · cuCONERUSH','Must stay above the ground plane at maximum range. Otherwise far cones are silently dropped and everyone spends an afternoon blaming the clustering.'],
+    ['008','1.3 ms','Measurement · cuCONEFUSED','Median full-map update on an Orin Nano with the CUDA backend. The CPU-only build takes about 15 ms and is kept for debugging and for humility.'],
+    ['div','T','003'],
+    ['009','the Way','Term · cuCONESTELLATION','What the planner calls its centerline. Without irony.'],
+    ['010','timestamp','Fix · cuCONERUSH','Markers now carry the sensor’s timestamp, so downstream nodes fuse measurements in the order they happened.'],
+    ['011','TODO','Section · README','A heading that holds a real crash log. The most honest section in the workspace.'],
+    ['div','#','001'],
+    ['012','first commit','Commit · CONEPOSER','The only commit CONEPOSER has ever had.']
+  ];
+  var stack=document.getElementById('stack'),card=document.getElementById('card'),pos=['l','c','r'],k=0,btns=[];
+  cards.forEach(function(c,i){
+    var row=document.createElement('div');row.className='row';
+    var t=document.createElement(c[0]==='div'?'span':'button');
+    if(c[0]==='div'){t.className='tab div '+(i%4===0?'l':'c');t.innerHTML='<span>'+c[1]+'</span><span>'+c[2]+'</span>'}
+    else{t.type='button';t.className='tab '+pos[k++%3];t.setAttribute('aria-pressed','false');t.innerHTML='<span>'+c[0]+'</span><span>'+c[1]+'</span>';
+      t.addEventListener('click',function(){show(c,t)});btns.push([c,t])}
+    row.appendChild(t);stack.appendChild(row);
+  });
+  function show(c,t){
+    btns.forEach(function(b){b[1].setAttribute('aria-pressed',b[1]===t)});
+    card.innerHTML='<div class="top"><span>No. '+c[0]+'</span><span>'+c[2]+'</span></div><h2>'+c[1]+'</h2><p>'+c[3]+'</p><span class="see">'+(c[4]?'See: <a href="'+c[4]+'">'+c[4].replace('https://','')+'</a>':'Cross-ref: ConeSortium README')+'</span>';
+  }
+  show(btns[0][0],btns[0][1]);
+})();
+</script>
+</body>
+</html>

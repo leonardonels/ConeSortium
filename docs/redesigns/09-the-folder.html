@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ConeSortium · The Folder</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Courier+Prime:wght@400;700&family=Playfair+Display:wght@700;900&family=Special+Elite&display=swap" rel="stylesheet">
+<style>
+/* Direction 09 · the current dossier, finished: one physical manila folder with tabbed subjects, photos, clips and stamps */
+:root{
+  --desk:#22392D; --desk-2:#2C4A3A; --manila:#D7BC85; --manila-2:#C9AC72; --sheet:#F4EEDF; --ink:#211C17; --red:#A3242F; --hi:#F2D36B; --blue:#1F5FD1; --yellow:#F2C200;
+  --display:'Playfair Display',Georgia,serif; --type:'Special Elite','Courier New',monospace; --mono:'Courier Prime','Courier New',monospace; --hand:'Caveat',cursive;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{margin:0;color:var(--ink);font:17px/1.55 var(--type);background:var(--desk) radial-gradient(120% 80% at 50% 0,var(--desk-2),var(--desk) 70%) no-repeat;min-height:100vh}
+a{color:var(--red)}
+.wrap{max-width:1040px;margin:0 auto;padding:40px max(16px,env(safe-area-inset-right,0px)) 72px max(16px,env(safe-area-inset-left,0px))}
+.tabs{display:flex;gap:4px;padding-left:18px;flex-wrap:wrap}
+.tabs button{font:700 12px var(--mono);letter-spacing:.16em;background:var(--manila-2);color:var(--ink);border:0;border-radius:10px 10px 0 0;padding:11px 18px 9px;cursor:pointer;position:relative;top:1px}
+.tabs button[aria-selected="true"]{background:var(--manila)}
+.tabs button:focus-visible{outline:2px solid var(--hi);outline-offset:2px}
+.folder{background:var(--manila);border-radius:0 10px 10px 10px;padding:clamp(14px,3vw,30px);box-shadow:0 30px 50px -30px rgba(0,0,0,.6);position:relative}
+.folder::before{content:"CS-4 · THE CONESORTIUM · PROPERTY OF THE CLUB";position:absolute;right:28px;top:8px;font:700 11px var(--mono);letter-spacing:.2em;opacity:.55}
+.panel{background:var(--sheet);padding:clamp(22px,4vw,44px);display:flex;flex-direction:column;gap:22px;position:relative;box-shadow:3px 3px 0 rgba(0,0,0,.12);margin-top:12px}
+.js .panel{display:none}.js .panel.on{display:flex}
+.top{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px 20px;font:700 12px var(--mono);letter-spacing:.18em;border-bottom:2px solid var(--ink);padding-bottom:10px}
+h1,h2{margin:0;font:900 clamp(34px,6vw,64px)/.95 var(--display);color:#14231C;text-wrap:balance}
+h2{font-size:clamp(30px,4.4vw,44px)}
+h2 a{color:inherit;text-decoration-thickness:2px}
+.lead{font:700 clamp(19px,2.2vw,24px)/1.3 var(--display);margin:0;max-width:40ch}
+.grid{display:grid;grid-template-columns:minmax(0,1fr) 230px;gap:28px;align-items:start}
+.kv{display:grid;grid-template-columns:170px minmax(0,1fr);gap:6px 16px;margin:0}
+.kv dt{font:700 12px var(--mono);letter-spacing:.14em;padding-top:4px}
+.kv dd{margin:0;border-bottom:1px dotted #BFAF8C;padding-bottom:4px}
+.photo{background:#fff;padding:10px 10px 34px;box-shadow:2px 3px 8px rgba(0,0,0,.25);transform:rotate(2.5deg);position:relative;margin:0}
+.photo svg{display:block;width:100%;height:auto;filter:sepia(.35) contrast(1.05)}
+.photo figcaption{position:absolute;left:0;right:0;bottom:6px;text-align:center;font:600 20px var(--hand);color:var(--ink)}
+.clip{position:absolute;top:-16px;left:30px;width:18px;height:46px;border:3px solid #8b8f93;border-radius:9px;border-bottom-color:transparent}
+.stamp{position:absolute;right:28px;top:64px;border:4px solid var(--red);color:var(--red);font:700 17px var(--mono);letter-spacing:.2em;padding:4px 10px;transform:rotate(-9deg);opacity:.8}
+.note{font:600 25px/1.05 var(--hand);color:var(--red);transform:rotate(-2deg);margin:0}
+.log{display:grid;gap:4px;margin:0;padding:0;list-style:none}
+.log li{display:grid;grid-template-columns:96px minmax(0,1fr);gap:12px;border-bottom:1px dotted #BFAF8C;padding:4px 0}
+.log b{font:700 13px var(--mono);color:#5A4A2E}
+.x{background:var(--ink);color:var(--ink);padding:0 3px;box-decoration-break:clone;-webkit-box-decoration-break:clone;transition:background .35s,color .35s}
+.open .x{background:var(--hi);color:var(--ink)}
+.controls{display:flex;gap:16px;flex-wrap:wrap;align-items:center;font:700 12px var(--mono);letter-spacing:.18em}
+.btn{min-height:48px;padding:0 24px;border:3px solid var(--red);background:transparent;color:var(--red);font:700 14px var(--mono);letter-spacing:.2em;cursor:pointer}
+.btn:hover{background:var(--red);color:var(--sheet)}
+.btn:focus-visible{outline:3px solid var(--hi);outline-offset:3px}
+.chain{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:0;padding:0;list-style:none}
+.chain li{border:2px solid var(--ink);padding:10px 12px;font-size:15px;line-height:1.35;display:flex;flex-direction:column;gap:4px}
+.chain li.off{border-style:dashed}
+.chain b{font:700 13px var(--mono);overflow-wrap:anywhere}
+pre{margin:0;background:#14231C;color:var(--sheet);padding:18px;font:15px/1.7 var(--mono);overflow-x:auto}
+@media (max-width:760px){.grid{grid-template-columns:minmax(0,1fr)}.photo{max-width:240px}.chain{grid-template-columns:1fr 1fr}.kv{grid-template-columns:minmax(0,1fr)}.stamp{position:static;align-self:flex-start}.tabs button{padding:9px 12px 7px;font-size:11px}}
+@media (prefers-reduced-motion:reduce){.x{transition:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="tabs" role="tablist" aria-label="Folder sections" id="tabs"></div>
+  <div class="folder" id="folder">
+
+    <section class="panel" data-tab="COVER" id="p0">
+      <div class="top"><span>FILE CS-4 · COPY 2 OF 4</span><span>EYES ONLY</span></div>
+      <h1>The ConeSortium</h1>
+      <p class="lead">A joke of a repo around four real ROS 2 nodes, written for Formula Student driverless racing.</p>
+      <div class="grid">
+        <div style="display:flex;flex-direction:column;gap:18px">
+          <p style="margin:0">A student-built car with nobody in it laps a track marked only by cones. Blue on its left, yellow on its right. The Club, the codenames and the black bars are jokes; the nodes are real.</p>
+          <ol class="chain"><li><b>1 · cuCONERUSH</b>Finds the cones.</li><li><b>2 · cuCONEFUSED</b>Maps them, then localises.</li><li><b>3 · cuCONESTELLATION</b>Grows the centerline.</li><li class="off"><b>Retired · CONEPOSER</b>Shows them in RViz.</li></ol>
+          <div class="controls"><button class="btn" type="button" id="declassify" aria-pressed="false">DECLASSIFY</button><span>PASSAGES WITHHELD: <span id="count">0</span></span></div>
+        </div>
+        <figure class="photo"><span class="clip"></span><svg viewBox="0 0 200 160" aria-hidden="true"><rect width="200" height="160" fill="#7d8a7b"/><path d="M0 110h200v50H0z" fill="#5f6b5d"/><path d="M100 30 128 120H72Z" fill="#F2C200" stroke="#211C17" stroke-width="2"/><path d="M84 82h32v10H84z" fill="#F4EEDF"/><path d="M62 118h76v8H62z" fill="#211C17"/><circle cx="30" cy="124" r="5" fill="#1F5FD1"/><circle cx="168" cy="124" r="5" fill="#F2C200"/></svg><figcaption>the witness</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="panel" data-tab="01 SPRINTER" id="p1">
+      <div class="top"><span>SUBJECT 01 · CODENAME <span class="x">SPRINTER</span></span><span>STATUS: ACTIVE</span></div>
+      <span class="stamp">ACTIVE</span>
+      <h2><a href="https://github.com/leonardonels/cuda_cone_rush">cuCONERUSH</a></h2>
+      <div class="grid">
+        <div style="display:flex;flex-direction:column;gap:18px">
+          <dl class="kv"><dt>ROLE</dt><dd>Detection. Point cloud in, cone markers out.</dd><dt>LATENCY</dt><dd>1.1 ms</dd><dt>HARDWARE</dt><dd>An <span class="x">RTX 4060 Mobile</span></dd><dt>CPU ASSISTANCE</dt><dd>Requested on <span class="x">no occasion whatsoever</span></dd></dl>
+          <ul class="log"><li><b>0.0000 s</b>Point cloud arrives on the GPU.</li><li><b>0.0011 s</b>Cone markers published.</li><li><b>0.0011 s</b>CPU asks if it might help. Subject: "<span class="x">It would be embarrassing for everyone.</span>"</li></ul>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:18px"><figure class="photo"><span class="clip"></span><svg viewBox="0 0 200 160" aria-hidden="true"><rect width="200" height="160" fill="#3c3f3a"/><g fill="#d9e0d0"><circle cx="40" cy="40" r="2"/><circle cx="70" cy="110" r="2"/><circle cx="150" cy="36" r="2"/><circle cx="168" cy="96" r="2"/><circle cx="110" cy="128" r="2"/></g><rect x="66" y="52" width="68" height="56" fill="none" stroke="#F2C200" stroke-width="3"/><path d="M100 60 116 104H84Z" fill="#F2C200"/></svg><figcaption>surveillance, 1.1 ms</figcaption></figure><p class="note">ask it about the CPU. go on.</p></div>
+      </div>
+    </section>
+
+    <section class="panel" data-tab="02 CARTOGRAPHER" id="p2">
+      <div class="top"><span>SUBJECT 02 · CODENAME <span class="x">CARTOGRAPHER</span></span><span>STATUS: ACTIVE</span></div>
+      <span class="stamp">ACTIVE</span>
+      <h2><a href="https://github.com/leonardonels/cuda_cone_fused">cuCONEFUSED</a></h2>
+      <div class="grid">
+        <div style="display:flex;flex-direction:column;gap:18px">
+          <dl class="kv"><dt>ROLE</dt><dd>EKF-SLAM</dd><dt>LAP 1</dt><dd>Builds the cone map</dd><dt>LAP 2 ONWARD</dt><dd>Localises against it, 1.3 ms per update</dd><dt>PRIMARY TARGET</dt><dd>The <span class="x">expensive sensor's self-confidence</span></dd></dl>
+          <ul class="log"><li><b>LAP 1</b>Subject quietly records the position of every cone.</li><li><b>LAP 2</b>Subject begins correcting the <span class="x">expensive sensor</span>.</li><li><b>LAP 2</b>The sensor is <span class="x">not informed</span>.</li></ul>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:18px"><figure class="photo"><span class="clip"></span><svg viewBox="0 0 200 160" aria-hidden="true"><rect width="200" height="160" fill="#e8dfc8"/><path d="M30 90C30 50 70 30 110 36S176 70 168 100 120 140 80 132 30 120 30 90Z" fill="none" stroke="#211C17" stroke-width="2" stroke-dasharray="5 5"/><g fill="#1F5FD1"><circle cx="40" cy="70" r="4"/><circle cx="80" cy="34" r="4"/><circle cx="150" cy="50" r="4"/></g><g fill="#F2C200" stroke="#211C17"><circle cx="160" cy="118" r="4"/><circle cx="90" cy="144" r="4"/><circle cx="34" cy="112" r="4"/></g></svg><figcaption>lap 1, filed</figcaption></figure><p class="note">does the sensor know??</p></div>
+      </div>
+    </section>
+
+    <section class="panel" data-tab="03 PATHFINDER" id="p3">
+      <div class="top"><span>SUBJECT 03 · CODENAME <span class="x">PATHFINDER</span></span><span>STATUS: NEWEST RECRUIT</span></div>
+      <span class="stamp">RECRUIT</span>
+      <h2><a href="https://github.com/leonardonels/cuda_cone_stellation">cuCONESTELLATION</a></h2>
+      <div class="grid">
+        <dl class="kv"><dt>ROLE</dt><dd>Triangulates the cone map, grows a centerline</dd><dt>CENTERLINE, A.K.A.</dt><dd><span class="x">the Way</span> (sic, without irony)</dd><dt>BACKENDS</dt><dd>4</dd><dt>DISAGREEMENT</dt><dd><span class="x">0 bytes</span> between any two</dd><dt>SIDE EFFECTS</dt><dd><span class="x">A warm Orin</span></dd></dl>
+        <p class="note">ask about the Orin.</p>
+      </div>
+    </section>
+
+    <section class="panel" data-tab="04 COURIER" id="p4">
+      <div class="top"><span>SUBJECT 04 · CODENAME <span class="x">COURIER</span></span><span>STATUS: RETIRED</span></div>
+      <span class="stamp">RETIRED</span>
+      <h2><a href="https://github.com/leonardonels/cone_poser">CONEPOSER</a></h2>
+      <div class="grid">
+        <dl class="kv"><dt>ROLE</dt><dd>Shows the cones in RViz or Foxglove as a ground-truth reference</dd><dt>METHOD</dt><dd>T<sub>global</sub> = T<sub>odom</sub> · T<sub>marker</sub></dd><dt>SERVICE RECORD</dt><dd>1 commit, titled "<span class="x">first commit</span>"</dd></dl>
+        <p class="note">check the git log. really.</p>
+      </div>
+      <pre>git clone --recurse-submodules https://github.com/leonardonels/ConeSortium
+colcon build</pre>
+    </section>
+  </div>
+</div>
+<script>
+(function(){
+  document.documentElement.classList.add('js');
+  var panels=[].slice.call(document.querySelectorAll('.panel')),tabs=document.getElementById('tabs'),btns=[];
+  panels.forEach(function(p,i){var b=document.createElement('button');b.type='button';b.setAttribute('role','tab');b.id='t'+i;b.setAttribute('aria-controls',p.id);b.textContent=p.dataset.tab;
+    p.setAttribute('role','tabpanel');p.setAttribute('aria-labelledby',b.id);b.addEventListener('click',function(){sel(i)});tabs.appendChild(b);btns.push(b)});
+  tabs.addEventListener('keydown',function(e){var i=btns.indexOf(document.activeElement);if(i<0)return;if(e.key==='ArrowRight'){sel((i+1)%btns.length,1)}if(e.key==='ArrowLeft'){sel((i-1+btns.length)%btns.length,1)}});
+  function sel(i,f){panels.forEach(function(p,j){p.classList.toggle('on',i===j);btns[j].setAttribute('aria-selected',i===j);btns[j].tabIndex=i===j?0:-1});if(f)btns[i].focus()}
+  sel(0);
+  var xs=document.querySelectorAll('.x'),c=document.getElementById('count'),b=document.getElementById('declassify');c.textContent=xs.length;
+  b.addEventListener('click',function(){var o=document.body.classList.toggle('open');b.textContent=o?'RECLASSIFY':'DECLASSIFY';b.setAttribute('aria-pressed',o);c.textContent=o?0:xs.length});
+})();
+</script>
+</body>
+</html>
