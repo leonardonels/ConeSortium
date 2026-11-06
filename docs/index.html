@@ -14,14 +14,6 @@
 <script src="assets/case-file.js" defer></script>
 </head>
 <body>
-<!--
-  HOW TO EDIT
-  - Each <section class="page"> is one folio of the register.
-  - Wrap any words in <span class="r">…</span> to withhold them.
-    They become clickable bars automatically, and the counter updates itself.
-  - <span class="vstamp">…</span> is the red vertical stamp beside a folio's text.
-  - Styles live in assets/case-file.css, behaviour in assets/case-file.js.
--->
 <main class="file">
 
   <section class="page" aria-labelledby="title">
@@ -46,8 +38,8 @@
 
     <figure class="exhibit">
       <p class="label">Plate A · The grounds</p>
-      <svg class="track" data-track viewBox="0 0 540 290" role="img" aria-label="A closed racing circuit seen from above, marked by blue cones on the left of the car and yellow cones on the right, with a dashed centerline between them."></svg>
-      <figcaption><span><span class="dot blue"></span>Blue, left</span> <span><span class="dot yellow"></span>Yellow, right</span> <span><span class="dot car"></span>The car, no driver</span></figcaption>
+      <svg class="track" data-track viewBox="0 0 556 304" role="img" aria-label="A closed racing circuit seen from above, marked by blue cones on the left of the car and yellow cones on the right, drawn as a survey plate. The car laps the circuit and inks the centerline behind it in red."></svg>
+      <figcaption><span><span class="key cone-blue"></span>Blue, left</span> <span><span class="key cone-yellow"></span>Yellow, right</span> <span><span class="key way"></span>The Way, inked by the car</span> <span class="lap" data-lap aria-hidden="true">Lap 01 of ∞</span></figcaption>
     </figure>
 
     <div class="exhibit">
@@ -93,9 +85,9 @@
       <span class="vstamp">FOLIO 2</span>
       <div class="lines">
         <p>The clever one. EKF-SLAM that treats FAST-LIMO odometry as a purely relative motion source and the track's static cones as landmarks.</p>
-        <p>Lap 1 builds the map with the pose gain zeroed. From lap 2 the map is rigid and only the 3×3 pose block is updated, so the pose snaps onto the cone map and stops drifting. The legacy full-SLAM mode remains available for anyone who enjoys <span class="r">watching a map slowly rotate over many laps</span>.</p>
+        <p>Lap 1 builds the map with the pose gain zeroed. From lap 2 the map is rigid and only the <span class="r">3x3 pose block</span> is updated, so the <span class="r">pose</span> snaps onto the cone map and stops drifting.</p>
         <p>The CUDA backend keeps P and x on the device for the whole run: about 15 ms on a CPU core becomes about 1.3 ms on an Orin Nano. <code>USE_CUDA=OFF</code> still builds the slow version, <span class="r">for debugging and for humility</span>.</p>
-        <p>Minuted, on the subject of a recent repair: "<span class="r">apparently the INF fix was not a fix</span>".</p>
+        <p>Its record notes a recent repair: the member once really believed in infinity, but <span class="r">the GPU did not</span>. Now it is just a ten hiding behind an infinite name. The members have been assured that <span class="r">ten is infinite enough</span>.</p>
       </div>
     </div>
     <hr>
@@ -109,7 +101,7 @@
     <div class="body">
       <span class="vstamp">FOLIO 3</span>
       <div class="lines">
-        <p>The newest member, and the one that finally does something with the cones instead of merely admiring them. It Delaunay-triangulates the cone map and grows a centerline, called without irony the <span class="r">Way</span>, one midpoint at a time.</p>
+        <p>The newest member, and the one that finally does something with the cones instead of merely admiring them. It Delaunay-triangulates the cone map and grows a centerline, called without irony <span class="r">The Way</span>, one midpoint at a time.</p>
         <p>Four interchangeable backends produce byte-identical Ways and differ only in <span class="r">how much of your Orin they set on fire</span>. The original CPU backend is kept purely to prove the others identical: <span class="r">too slow to deploy, too useful to delete</span>.</p>
         <p>The diagnostic log line now costs <span class="r">more than the search it is measuring</span>.</p>
       </div>

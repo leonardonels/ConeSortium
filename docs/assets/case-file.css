@@ -211,26 +211,34 @@ pre {
 
 .exhibit { margin: 0; display: flex; flex-direction: column; gap: 10px; }
 .track { display: block; width: 100%; height: auto; }
-.track .centerline { fill: none; stroke: var(--muted); stroke-width: 1.5; stroke-dasharray: 5 7; }
-.track .cone { stroke: var(--ink); stroke-width: 1; transition: opacity .8s ease-out; }
+.track .frame { fill: none; stroke: var(--rule); stroke-width: 1.5; }
+.track .frame.thin { stroke-width: .6; }
+.track .centerline { fill: none; stroke: var(--muted); stroke-width: .8; stroke-dasharray: 2 4; opacity: .7; }
+.track .way { fill: none; stroke: var(--stamp); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.track .cone { stroke: var(--ink); stroke-width: 1; stroke-linejoin: round; }
 .track .cone.blue   { fill: var(--blue); }
 .track .cone.yellow { fill: var(--yellow); }
-.track.live .cone { opacity: .35; }
-.track.live .cone.seen { opacity: 1; }
-.track .car { fill: var(--stamp); stroke: var(--ink); stroke-width: 1.5; }
+.track .car { fill: var(--ink); }
+.track .furniture { fill: var(--ink); font: 700 10px var(--mono); letter-spacing: .1em; }
+.track .furniture .rule { fill: none; stroke: var(--ink); stroke-width: 1.2; }
+.track .furniture .note { font-weight: 400; font-style: italic; fill: var(--muted); }
 
-.exhibit figcaption { display: flex; flex-wrap: wrap; gap: 4px 18px; font-size: 14px; }
-.dot {
-  display: inline-block;
-  width: 11px; height: 11px;
-  margin-right: 6px;
-  border: 1px solid var(--ink);
-  border-radius: 50%;
-  vertical-align: -1px;
+.exhibit figcaption { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 18px; font-size: 14px; }
+.key { display: inline-block; margin-right: 6px; vertical-align: 0; }
+.key.cone-blue, .key.cone-yellow {
+  width: 11px; height: 10px;
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+  background: var(--ink);
+  position: relative;
 }
-.dot.blue   { background: var(--blue); }
-.dot.yellow { background: var(--yellow); }
-.dot.car    { background: var(--stamp); border-radius: 0; }
+.key.cone-blue::after, .key.cone-yellow::after {
+  content: ""; position: absolute; inset: 0;
+  clip-path: polygon(50% 16%, 88% 92%, 12% 92%);
+}
+.key.cone-blue::after   { background: var(--blue); }
+.key.cone-yellow::after { background: var(--yellow); }
+.key.way { width: 18px; height: 2px; background: var(--stamp); vertical-align: 4px; }
+.lap { margin-left: auto; letter-spacing: .12em; text-transform: uppercase; font-variant-numeric: tabular-nums; }
 
 /* ---------- Chain of custody ---------- */
 
@@ -294,6 +302,6 @@ button:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .r, .track .cone { transition: none; }
+  .r { transition: none; }
   .disclosed.go { animation: none; opacity: .85; transform: rotate(-12deg); }
 }
