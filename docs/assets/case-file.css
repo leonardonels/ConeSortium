@@ -1,5 +1,5 @@
-/* ConeSortium · Cone Case File
-   One quiet case file, typeset like a real archive sheet.
+/* ConeSortium · Register of Members
+   The society's own register, typeset like a real archive sheet.
    The black bars and the red stamps are the only loud things on the page. */
 
 :root {
@@ -45,7 +45,7 @@ code { font: inherit; font-weight: 700; }
   display: flex;
   flex-direction: column;
   gap: 64px;
-  overflow-x: clip; /* keeps the oversized DECLASSIFIED stamp from widening the page */
+  overflow-x: clip; /* keeps the oversized DISCLOSED stamp from widening the page */
 }
 
 .page {
@@ -65,6 +65,15 @@ h1 {
   text-transform: uppercase;
   text-wrap: balance;
 }
+
+.definition {
+  margin: -8px auto 0;
+  max-width: 34em;
+  text-align: center;
+  font: 400 19px/1.45 var(--serif);
+  text-wrap: balance;
+}
+.definition b { font-weight: 700; }
 
 .meta {
   display: grid;
@@ -128,7 +137,7 @@ pre {
 /* ---------- Stamps ---------- */
 
 /* rough ink edge shared by every stamp */
-.stamp, .vstamp, .declassified {
+.stamp, .vstamp, .disclosed {
   -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.9'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -2.4 2'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E");
           mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.9'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -2.4 2'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E");
 }
@@ -157,11 +166,11 @@ pre {
   letter-spacing: .16em;
 }
 
-/* lands on the first sheet when everything is declassified (added by JS) */
-.declassified {
+/* lands on the first folio when the full minutes are read (added by JS) */
+.disclosed {
   position: absolute;
   left: 0;
-  top: 236px;
+  top: 300px;
   padding: 6px 14px;
   border: 5px solid var(--stamp);
   color: var(--stamp);
@@ -171,7 +180,7 @@ pre {
   transform: rotate(-12deg) scale(3);
   pointer-events: none;
 }
-.declassified.go { animation: slam .5s cubic-bezier(.2, 1.6, .4, 1) forwards; }
+.disclosed.go { animation: slam .5s cubic-bezier(.2, 1.6, .4, 1) forwards; }
 @keyframes slam {
   60%  { opacity: .9;  transform: rotate(-12deg) scale(.92); }
   100% { opacity: .85; transform: rotate(-12deg) scale(1); }
@@ -281,10 +290,10 @@ button:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
     writing-mode: horizontal-tb;
     transform: none;
   }
-  .declassified { top: 200px; }
+  .disclosed { top: 260px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .r, .track .cone { transition: none; }
-  .declassified.go { animation: none; opacity: .85; transform: rotate(-12deg); }
+  .disclosed.go { animation: none; opacity: .85; transform: rotate(-12deg); }
 }

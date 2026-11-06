@@ -4,142 +4,150 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>The ConeSortium</title>
-<meta name="description" content="A joke of a repo around four real ROS 2 nodes, written for Formula Student driverless racing.">
+<meta name="description" content="A distinguished assembly of esteemed members. In this case, four ROS 2 packages for Formula Student driverless racing, and the traffic cones they serve.">
 <meta name="theme-color" content="#E9E5DC">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M16 3 25 27H7Z' fill='%23F2C200' stroke='%23141311' stroke-width='2'/%3E%3Cpath d='M10.5 18h11' stroke='%23E9E5DC' stroke-width='3'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Old+Standard+TT:wght@400;700&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/case-file.css">
 <script src="assets/case-file.js" defer></script>
 </head>
 <body>
 <!--
   HOW TO EDIT
-  - Each <section class="page"> is one sheet of the file.
-  - Wrap any words in <span class="r">…</span> to black them out.
+  - Each <section class="page"> is one folio of the register.
+  - Wrap any words in <span class="r">…</span> to withhold them.
     They become clickable bars automatically, and the counter updates itself.
-  - <span class="vstamp">…</span> is the red vertical stamp beside a sheet's text.
+  - <span class="vstamp">…</span> is the red vertical stamp beside a folio's text.
   - Styles live in assets/case-file.css, behaviour in assets/case-file.js.
 -->
 <main class="file">
 
   <section class="page" aria-labelledby="title">
-    <div class="stamp" aria-hidden="true">CLASSIFIED</div>
-    <h1 id="title">Cone Case File</h1>
+    <div class="stamp" aria-hidden="true">CONFIDENTIAL</div>
+    <h1 id="title">Register of Members</h1>
+    <p class="definition"><b>sortium</b> <i>(n.)</i>: a distinguished assembly of esteemed members. In this case, the esteemed members are all traffic cones.</p>
     <hr>
     <div class="meta">
-      <span>Case #: CS-004</span>
-      <span>Status: At large</span>
-      <span>Opened: <span class="r">2024</span></span>
+      <span>The ConeSortium</span>
+      <span>Members: 4 · Cones: uncounted</span>
+      <span>Seat of the society: <span class="r">the pit lane</span></span>
     </div>
     <hr>
     <div class="body">
-      <span class="vstamp">REDACTED</span>
+      <span class="vstamp">MEMBERS ONLY</span>
       <div class="lines">
-        <p>The ConeSortium is a joke of a repo around four real ROS 2 nodes, written for Formula Student driverless racing.</p>
-        <p>A student-built car with <span class="r">nobody in it</span> laps a track marked only by cones. Blue on its left, yellow on its right. The track is whatever lies between them.</p>
-        <p>The cones are cheap, plastic and stationary. They do not drift. They are, by the file's own admission, <span class="r">the most dependable part of the entire pipeline</span>.</p>
+        <p>The ConeSortium is a ROS 2 workspace for Formula Student driverless racing, where a student-built car with nobody in it laps a track marked only by cones. Blue on its left, yellow on its right. The track is whatever lies between them.</p>
+        <p>The cones, at least, are reliable. They stay where you put them. They do not drift. They are, frankly, <span class="r">the most dependable part of the entire pipeline</span>.</p>
+        <p>Every member lives as a git submodule, so the society is mostly an opinionated list of links to repos that each <span class="r">individually claim to be the important one</span>.</p>
       </div>
     </div>
 
     <figure class="exhibit">
-      <p class="label">Exhibit A · The area of operations</p>
+      <p class="label">Plate A · The grounds</p>
       <svg class="track" data-track viewBox="0 0 540 290" role="img" aria-label="A closed racing circuit seen from above, marked by blue cones on the left of the car and yellow cones on the right, with a dashed centerline between them."></svg>
       <figcaption><span><span class="dot blue"></span>Blue, left</span> <span><span class="dot yellow"></span>Yellow, right</span> <span><span class="dot car"></span>The car, no driver</span></figcaption>
     </figure>
 
-    <ol class="chain" aria-label="Chain of custody">
-      <li><b>01 Rush</b>Finds cones in the LiDAR cloud.</li>
-      <li><b>02 Fused</b>Maps them, then localises on them.</li>
-      <li><b>03 Stellation</b>Grows the centerline.</li>
-      <li class="off"><b>— Poser</b>Retired. One matrix multiply.</li>
-    </ol>
+    <div class="exhibit">
+      <p class="label">Order of precedence · who hands what to whom</p>
+      <ol class="chain">
+        <li><b>No. 1 Rush</b>Finds the cones in the LiDAR cloud.</li>
+        <li><b>No. 2 Fused</b>Maps them, then localises on them.</li>
+        <li><b>No. 3 Stellation</b>Grows the centerline.</li>
+        <li class="off"><b>Emeritus · Poser</b>One matrix multiply.</li>
+      </ol>
+    </div>
 
     <div class="controls">
-      <button type="button" id="declassify" aria-pressed="false">DECLASSIFY ALL</button>
-      <span>PASSAGES WITHHELD: <span id="withheld">0</span> · OR CLICK A BAR</span>
+      <button type="button" id="minutes" aria-pressed="false">READ THE FULL MINUTES</button>
+      <span>WITHHELD AT THE MEMBERS' REQUEST: <span id="withheld">0</span> · OR CLICK A BAR</span>
     </div>
     <hr>
-    <div class="foot"><span>Case #: CS-004 / 0</span><span>Status: <span class="tag">AT LARGE</span></span></div>
+    <div class="foot"><span>Register CS-004 / Folio 0</span><span>Session: <span class="tag">IN PROGRESS</span></span></div>
   </section>
 
   <section class="page">
     <hr>
-    <div class="meta"><span>Subject: cuCONERUSH</span><span>Codename: <span class="r">SPRINTER</span></span></div>
+    <div class="meta"><span>Member No. 1 · cuCONERUSH</span><span>Founding member · In good standing</span></div>
     <hr>
     <div class="body">
-      <span class="vstamp">EXHIBIT 1</span>
+      <span class="vstamp">FOLIO 1</span>
       <div class="lines">
-        <p>Point cloud in, cone markers out. XYZ filter, RANSAC ground segmentation, voxel clustering and cone-size filtering, all without leaving the GPU.</p>
-        <p>Measured at 1.1 ms on an <span class="r">RTX 4060 Mobile</span>, 10 ms on an Orin Nano Super. CPU assistance requested on <span class="r">no occasion whatsoever</span>.</p>
-        <p>Known hazard: if <code>maxHeight</code> sits below the ground plane at full range, far cones are silently dropped and <span class="r">everyone blames the clustering</span>.</p>
+        <p>The detection front-end. Point cloud in, cone markers out: XYZ filter, RANSAC ground segmentation, voxel clustering and cone-size filtering, on CUDA buffers the entire way through.</p>
+        <p>From a leisurely 10 ms on an Orin Nano Super to a borderline-rude 1.1 ms on an <span class="r">RTX 4060 Mobile</span>. Asking the CPU to help <span class="r">would be embarrassing</span>.</p>
+        <p><code>maxHeight</code> must stay above the ground plane at maximum range, or far cones are silently dropped and <span class="r">everyone spends an afternoon blaming the clustering</span>.</p>
+        <p>Its README still ships a real crash log under a heading called <code>TODO</code>, which remains <span class="r">the most honest section in this entire workspace</span>.</p>
       </div>
     </div>
     <hr>
-    <div class="foot"><span>Case #: CS-004 / 1</span><a href="https://github.com/leonardonels/cuda_cone_rush">github / cuda_cone_rush</a></div>
+    <div class="foot"><span>Register CS-004 / Folio 1</span><a href="https://github.com/leonardonels/cuda_cone_rush">github / cuda_cone_rush</a></div>
   </section>
 
   <section class="page">
     <hr>
-    <div class="meta"><span>Subject: cuCONEFUSED</span><span>Codename: <span class="r">CARTOGRAPHER</span></span></div>
+    <div class="meta"><span>Member No. 2 · cuCONEFUSED</span><span>In good standing</span></div>
     <hr>
     <div class="body">
-      <span class="vstamp">EXHIBIT 2</span>
+      <span class="vstamp">FOLIO 2</span>
       <div class="lines">
-        <p>EKF-SLAM. Lap 1 builds the cone map with the pose gain frozen. From lap 2 the map is rigid and only the 3×3 pose block updates.</p>
-        <p>Covariance stays on the device for the whole run. A full-map update drops from 15 ms on a CPU core to 1.3 ms on an Orin Nano.</p>
-        <p>Primary target: <span class="r">the expensive sensor's self-confidence</span>. The sensor is <span class="r">not informed</span>.</p>
+        <p>The clever one. EKF-SLAM that treats FAST-LIMO odometry as a purely relative motion source and the track's static cones as landmarks.</p>
+        <p>Lap 1 builds the map with the pose gain zeroed. From lap 2 the map is rigid and only the 3×3 pose block is updated, so the pose snaps onto the cone map and stops drifting. The legacy full-SLAM mode remains available for anyone who enjoys <span class="r">watching a map slowly rotate over many laps</span>.</p>
+        <p>The CUDA backend keeps P and x on the device for the whole run: about 15 ms on a CPU core becomes about 1.3 ms on an Orin Nano. <code>USE_CUDA=OFF</code> still builds the slow version, <span class="r">for debugging and for humility</span>.</p>
+        <p>Minuted, on the subject of a recent repair: "<span class="r">apparently the INF fix was not a fix</span>".</p>
       </div>
     </div>
     <hr>
-    <div class="foot"><span>Case #: CS-004 / 2</span><a href="https://github.com/leonardonels/cuda_cone_fused">github / cuda_cone_fused</a></div>
+    <div class="foot"><span>Register CS-004 / Folio 2</span><a href="https://github.com/leonardonels/cuda_cone_fused">github / cuda_cone_fused</a></div>
   </section>
 
   <section class="page">
     <hr>
-    <div class="meta"><span>Subject: cuCONESTELLATION</span><span>Codename: <span class="r">PATHFINDER</span></span></div>
+    <div class="meta"><span>Member No. 3 · cuCONESTELLATION</span><span>Newly admitted</span></div>
     <hr>
     <div class="body">
-      <span class="vstamp">EXHIBIT 3</span>
+      <span class="vstamp">FOLIO 3</span>
       <div class="lines">
-        <p>Triangulates the cone map and grows a centerline through it. Four backends. Outputs compared: <span class="r">byte-identical</span>.</p>
-        <p>Only measurable difference between them: <span class="r">how hot the Orin got</span>. Subject refers to its output as <span class="r">the Way</span>.</p>
+        <p>The newest member, and the one that finally does something with the cones instead of merely admiring them. It Delaunay-triangulates the cone map and grows a centerline, called without irony the <span class="r">Way</span>, one midpoint at a time.</p>
+        <p>Four interchangeable backends produce byte-identical Ways and differ only in <span class="r">how much of your Orin they set on fire</span>. The original CPU backend is kept purely to prove the others identical: <span class="r">too slow to deploy, too useful to delete</span>.</p>
+        <p>The diagnostic log line now costs <span class="r">more than the search it is measuring</span>.</p>
       </div>
     </div>
     <hr>
-    <div class="foot"><span>Case #: CS-004 / 3</span><a href="https://github.com/leonardonels/cuda_cone_stellation">github / cuda_cone_stellation</a></div>
+    <div class="foot"><span>Register CS-004 / Folio 3</span><a href="https://github.com/leonardonels/cuda_cone_stellation">github / cuda_cone_stellation</a></div>
   </section>
 
   <section class="page">
     <hr>
-    <div class="meta"><span>Subject: CONEPOSER</span><span>Status: Retired</span></div>
+    <div class="meta"><span>Member No. 4 · CONEPOSER</span><span>Member emeritus</span></div>
     <hr>
     <div class="body">
-      <span class="vstamp">EXHIBIT 4</span>
+      <span class="vstamp">FOLIO 4</span>
       <div class="lines">
-        <p>T<sub>global</sub> = T<sub>odom</sub> · T<sub>marker</sub>. That is the whole package. Kept as a ground-truth reference for RViz and Foxglove.</p>
-        <p>Service record: one commit, titled <span class="r">"first commit"</span>.</p>
+        <p>The middle child. It does exactly one matrix multiply, T<sub>global</sub> = T<sub>odom</sub> · T<sub>marker</sub>, and it does not pretend otherwise. No filtering, no fusion, no drama.</p>
+        <p>No longer races, but still attends in RViz and Foxglove as a ground-truth reference. Content with a CPU and modest expectations.</p>
+        <p>Service record: one commit, ever, called <span class="r">"first commit"</span>. Sometimes you just need the cones somewhere else.</p>
       </div>
     </div>
     <hr>
-    <div class="foot"><span>Case #: CS-004 / 4</span><a href="https://github.com/leonardonels/cone_poser">github / cone_poser</a></div>
+    <div class="foot"><span>Register CS-004 / Folio 4</span><a href="https://github.com/leonardonels/cone_poser">github / cone_poser</a></div>
   </section>
 
   <section class="page">
     <hr>
-    <div class="meta"><span>Appendix A: Extraction procedure</span><span>Burn after colcon</span></div>
+    <div class="meta"><span>Appendix A · Admission procedure</span><span>To be read before colcon</span></div>
     <hr>
     <pre>git clone <span class="r">--recurse-submodules</span> https://github.com/leonardonels/ConeSortium
-# if the flag above was omitted:
-<span class="r">git submodule update --init --recursive</span>
-colcon build</pre>
+# or, if you already cloned and forgot (<span class="r">you did</span>):
+git submodule update --init --recursive
+colcon build    # the whole sortium, or pick your favourite member</pre>
     <p class="small">Licensed per package. The cones themselves remain unlicensed and at large.</p>
     <hr>
-    <div class="foot"><span>Case #: CS-004 / A</span><a href="https://github.com/leonardonels/ConeSortium">full archive</a></div>
+    <div class="foot"><span>Register CS-004 / Appendix A</span><a href="https://github.com/leonardonels/ConeSortium">the full archive</a></div>
   </section>
 
-  <p class="archive">CONESORTIUM ARCHIVES</p>
+  <p class="archive">THE CONESORTIUM · REGISTER OF MEMBERS</p>
 </main>
 </body>
 </html>

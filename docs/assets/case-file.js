@@ -1,6 +1,6 @@
 /* ConeSortium · Cone Case File
    1. Redactions: every <span class="r"> becomes a bar you can click (or press Enter on) to reveal.
-   2. Declassify all: one button reveals every bar and slams a DECLASSIFIED stamp.
+   2. Read the full minutes: one button reveals every bar and slams a DISCLOSED stamp.
    3. Exhibit A: draws the track, its cones and a driverless car lapping it. */
 
 (function () {
@@ -38,19 +38,19 @@
   });
   updateCount();
 
-  /* ---------- 2. Declassify all ---------- */
+  /* ---------- 2. Read the full minutes ---------- */
 
-  var button = document.getElementById('declassify');
+  var button = document.getElementById('minutes');
   if (button) {
     var stamp = document.createElement('div');
-    stamp.className = 'declassified';
+    stamp.className = 'disclosed';
     stamp.setAttribute('aria-hidden', 'true');
-    stamp.textContent = 'DECLASSIFIED';
+    stamp.textContent = 'DISCLOSED';
     button.closest('.page').appendChild(stamp);
 
     button.addEventListener('click', function () {
       var open = root.classList.toggle('all');
-      button.textContent = open ? 'RECLASSIFY' : 'DECLASSIFY ALL';
+      button.textContent = open ? 'CLOSE THE MINUTES' : 'READ THE FULL MINUTES';
       button.setAttribute('aria-pressed', String(open));
       if (!open) bars.forEach(function (b) { b.classList.remove('on'); b.setAttribute('aria-pressed', 'false'); });
       updateCount();
