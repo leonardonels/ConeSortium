@@ -5,297 +5,141 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>The ConeSortium</title>
 <meta name="description" content="A joke of a repo around four real ROS 2 nodes, written for Formula Student driverless racing.">
-<meta name="theme-color" content="#1E3A2F">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M16 3 25 27H7Z' fill='%23F2C200' stroke='%2314231C' stroke-width='2'/%3E%3Cpath d='M10.5 18h11' stroke='%23F6EFDF' stroke-width='3'/%3E%3C/svg%3E">
+<meta name="theme-color" content="#E9E5DC">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M16 3 25 27H7Z' fill='%23F2C200' stroke='%23141311' stroke-width='2'/%3E%3Cpath d='M10.5 18h11' stroke='%23E9E5DC' stroke-width='3'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Courier+Prime:wght@400;700&family=Playfair+Display:wght@700;900&family=Special+Elite&display=swap" rel="stylesheet">
-<style>
-body{margin:0;background:#1E3A2F}
-a{color:#7A1E2C}a:hover{color:#14231C}
-.sheet{background:#F6EFDF;border:1px solid #2A211C;box-shadow:6px 6px 0 #14231C;padding:clamp(22px,4vw,40px);display:flex;flex-direction:column;gap:22px;position:relative}
-.top{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 24px;font:700 13px 'Courier Prime',monospace;letter-spacing:.18em;border-bottom:2px solid #2A211C;padding-bottom:12px}
-.sheet h3{margin:0;font:900 clamp(30px,4vw,40px) 'Playfair Display',serif;color:#14231C}
-.sec{font:700 13px 'Courier Prime',monospace;letter-spacing:.22em;color:#5A4A2E;margin:0 0 6px}
-.row{display:grid;grid-template-columns:64px minmax(0,1fr);gap:12px;align-items:baseline;padding:5px 0;border-bottom:1px dotted #BFAF8C}
-.ex{font:700 12px 'Courier Prime',monospace;color:#7A1E2C;letter-spacing:.06em}
-.kv{display:grid;grid-template-columns:200px minmax(0,1fr);gap:4px 16px;font:18px/1.45 'Special Elite',monospace}
-.kv i{font:700 13px 'Courier Prime',monospace;font-style:normal;letter-spacing:.14em;padding-top:3px}
-.log{font:17px/1.5 'Special Elite',monospace}
-.log b{font:700 14px 'Courier Prime',monospace;color:#5A4A2E;margin-right:10px}
-.para{margin:0;font:19px/1.6 'Special Elite',monospace}
-.note{position:absolute;right:clamp(14px,3vw,36px);top:clamp(70px,9vw,96px);transform:rotate(-4deg);font:600 26px/1.1 'Caveat',cursive;color:#A3242F;max-width:220px;text-align:right}
-.btn{min-height:52px;padding:0 28px;border:3px solid #8E2433;background:#F6EFDF;color:#8E2433;font:700 15px 'Courier Prime',monospace;letter-spacing:.22em;cursor:pointer}
-.btn:hover{background:#8E2433;color:#F6EFDF}
-.cover{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:clamp(24px,4vw,44px);align-items:start}
-.chain{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin:0;padding:0;list-style:none}
-.chain li{border:2px solid #2A211C;padding:12px 14px;display:flex;flex-direction:column;gap:6px;font:16px/1.35 'Special Elite',monospace}
-.chain .off{border-style:dashed}
-.chain b{font:700 14px 'Courier Prime',monospace;letter-spacing:.04em;overflow-wrap:anywhere}
-.swatch{display:inline-block;width:13px;height:13px;border-radius:50%;border:1px solid #14231C;vertical-align:-1px;margin-right:6px}
-.x{-webkit-box-decoration-break:clone;box-decoration-break:clone;padding:0 3px}
-@media (max-width:720px){.cover{grid-template-columns:minmax(0,1fr)}.kv{grid-template-columns:minmax(0,1fr)}.note{position:static;transform:none;text-align:left;max-width:none}.row{grid-template-columns:44px minmax(0,1fr)}}
-.btn:focus-visible{outline:3px solid #F2D36B;outline-offset:3px}
-
-/* Redactions: each word gets its own bar so wrapped passages stay clean */
-.x{color:#1A1512;transition:background-color .3s}
-.x.dark{color:#F6EFDF}
-.w{position:relative}
-.w::after{content:"";position:absolute;inset:0 -1px;background:#1A1512;transform-origin:left;transition:transform .4s cubic-bezier(.7,0,.3,1);transition-delay:inherit}
-.x.dark .w::after{background:#F6EFDF}
-.open .x{background:#F2D36B;color:#2A211C;text-decoration:underline 2px #A3242F}
-.open .x.dark{color:#14231C;text-decoration:none}
-.open .w::after{transform:scaleX(0);transform-origin:right}
-
-/* Keeps the stamp's oversized start frame from causing sideways scroll */
-#desk{overflow:hidden}
-
-/* Declassified stamp */
-.stamp{position:absolute;right:clamp(16px,4vw,56px);bottom:clamp(20px,4vw,48px);border:5px solid #A3242F;color:#A3242F;font:700 clamp(18px,2.6vw,28px) 'Courier Prime',monospace;letter-spacing:.2em;padding:6px 14px;opacity:0;transform:rotate(-12deg) scale(3);pointer-events:none}
-.stamp.go{animation:slam .5s cubic-bezier(.2,1.6,.4,1) forwards}
-@keyframes slam{60%{opacity:.9;transform:rotate(-12deg) scale(.92)}100%{opacity:.85;transform:rotate(-12deg) scale(1)}}
-.jolt{animation:jolt .25s .3s}
-@keyframes jolt{25%{transform:translate(3px,1px)}50%{transform:translate(-2px,-1px)}75%{transform:translate(1px,-1px)}}
-
-/* Red pen notes write themselves in */
-.js .note{clip-path:inset(0 100% 0 0)}
-.js .seen .note,.js .seen.note{animation:write 1.3s .3s steps(24) forwards}
-@keyframes write{to{clip-path:inset(0 0 0 0)}}
-
-/* Exhibit A cones */
-.cone{transition:opacity .8s ease-out,fill .8s ease-out}
-.live .cone{opacity:.55}                    /* cones not yet found */
-.live .cone.found{opacity:1;fill:#f726a7}   /* cones the car has found */
-
-@media (prefers-reduced-motion:reduce){
-  .w::after,.x{transition:none!important}
-  .js .note{clip-path:none;animation:none!important}
-  .stamp.go{animation:none;opacity:.85;transform:rotate(-12deg)}
-  .jolt{animation:none}
-}
-
-</style>
+<link href="https://fonts.googleapis.com/css2?family=Old+Standard+TT:wght@400;700&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/case-file.css">
+<script src="assets/case-file.js" defer></script>
 </head>
 <body>
-<div id="desk" style="background: #1E3A2F; padding: clamp(16px, 4vw, 56px) 0 80px; color: #2A211C">
-  <main style="max-width: 1080px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 40px); display: flex; flex-direction: column; gap: 40px">
+<!--
+  HOW TO EDIT
+  - Each <section class="page"> is one sheet of the file.
+  - Wrap any words in <span class="r">…</span> to black them out.
+    They become clickable bars automatically, and the counter updates itself.
+  - <span class="vstamp">…</span> is the red vertical stamp beside a sheet's text.
+  - Styles live in assets/case-file.css, behaviour in assets/case-file.js.
+-->
+<main class="file">
 
-    <header id="hdr" style="position: relative; background: #D9C089; padding: clamp(28px, 5vw, 56px); display: flex; flex-direction: column; gap: 18px">
-      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; font: 700 13px 'Courier Prime', monospace; letter-spacing: .2em">
-        <span>FILE CS-4 · COPY 2 OF 4</span><span>CLASSIFICATION: CONE-1 · EYES ONLY</span>
+  <section class="page" aria-labelledby="title">
+    <div class="stamp" aria-hidden="true">CLASSIFIED</div>
+    <h1 id="title">Cone Case File</h1>
+    <hr>
+    <div class="meta">
+      <span>Case #: CS-004</span>
+      <span>Status: At large</span>
+      <span>Opened: <span class="r">2024</span></span>
+    </div>
+    <hr>
+    <div class="body">
+      <span class="vstamp">REDACTED</span>
+      <div class="lines">
+        <p>The ConeSortium is a joke of a repo around four real ROS 2 nodes, written for Formula Student driverless racing.</p>
+        <p>A student-built car with <span class="r">nobody in it</span> laps a track marked only by cones. Blue on its left, yellow on its right. The track is whatever lies between them.</p>
+        <p>The cones are cheap, plastic and stationary. They do not drift. They are, by the file's own admission, <span class="r">the most dependable part of the entire pipeline</span>.</p>
       </div>
-      <h1 style="margin: 0; font: 900 clamp(40px, 9vw, 108px)/.95 'Playfair Display', serif; color: #14231C">The ConeSortium</h1>
-      <p style="margin: 0; max-width: 820px; font: 700 clamp(22px, 2.6vw, 28px)/1.3 'Playfair Display', serif; color: #14231C">A joke of a repo around four real nodes, written for Formula Student driverless racing.</p>
-      <div class="kv" style="max-width: 760px">
-        <i>TO</i><span>New members of the Club</span>
-        <i>FROM</i><span>The Club, <span class="x">Pit Lane</span> Office</span>
-        <i>RE</i><span>Three ROS 2 nodes that get a driverless Formula Student car around a track of cones, and one that does not</span>
-        <i>DISTRIBUTION</i><span>4 copies. Copy 1: archive. Copy 3: <span class="x">the build farm, which will not read it</span>.</span>
-      </div>
-      <p class="para" style="max-width: 780px">Each subject below has been observed in the field. Passages that would compromise the subjects, or embarrass the CPU, have been withheld under §(c)(1). Members holding sufficient clearance may release them.</p>
-      <div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: center">
-        <button class="btn" type="button" id="declassify" aria-pressed="false">DECLASSIFY</button>
-        <span style="font: 700 13px 'Courier Prime', monospace; letter-spacing: .2em">PASSAGES WITHHELD: <span id="withheld">27</span> OF <span data-total>27</span></span>
-      </div>
-      <div class="stamp" id="stamp" aria-hidden="true">DECLASSIFIED</div>
-    </header>
+    </div>
 
-    <section class="sheet">
-      <div class="top"><span>COVER NOTE · READ THIS FIRST</span><span>UNCLASSIFIED · NOTHING WITHHELD</span></div>
-      <div class="cover">
-        <div style="display: flex; flex-direction: column; gap: 16px">
-          <h2 style="margin: 0; font: 900 clamp(30px, 4vw, 40px)/1.05 'Playfair Display', serif; color: #14231C">What this file is actually about</h2>
-          <p class="para">This is a goliardic repo. The Club, the codenames and the black bars are jokes.</p>
-          <p class="para">The nodes are real. They were written for Formula Student driverless racing, where a student-built car with nobody in it laps a track marked only by cones.</p>
-          <p class="para">The cones are the whole job: blue on the car's left, yellow on its right, and the track is whatever lies between them.</p>
-        </div>
-        <figure style="margin: 0; display: flex; flex-direction: column; gap: 10px">
-          <p class="sec" style="margin: 0">EXHIBIT A · THE AREA OF OPERATIONS</p>
-          <svg viewBox="0 0 540 290" role="img" aria-label="A closed racing circuit seen from above, marked by blue cones on the left of the car and yellow cones on the right, with a dashed centerline between them." style="display: block; width: 100%; height: auto"><path id="track" d="M90.0 70.0 L101.4 65.0 L114.8 61.0 L129.9 57.9 L146.2 55.5 L163.4 53.8 L181.2 52.5 L199.1 51.6 L216.8 51.0 L233.9 50.5 L250.0 50.0 L265.6 49.6 L281.4 49.4 L297.3 49.5 L313.1 49.9 L328.8 50.6 L344.1 51.7 L359.0 53.1 L373.4 55.0 L387.1 57.2 L400.0 60.0 L412.5 63.2 L425.0 67.0 L437.1 71.1 L448.9 75.7 L460.0 80.6 L470.3 85.9 L479.7 91.5 L487.8 97.4 L494.7 103.6 L500.0 110.0 L503.8 117.0 L506.3 125.0 L507.6 133.5 L507.8 142.5 L506.9 151.6 L505.0 160.5 L502.3 169.1 L498.9 177.0 L494.7 184.1 L490.0 190.0 L484.2 195.0 L476.8 199.6 L468.2 203.7 L458.8 207.3 L448.8 210.3 L438.4 212.7 L428.0 214.4 L418.0 215.4 L408.6 215.6 L400.0 215.0 L392.2 213.1 L384.9 209.7 L377.8 205.1 L371.0 199.6 L364.4 193.8 L357.8 187.8 L351.1 182.0 L344.3 176.9 L337.3 172.8 L330.0 170.0 L322.3 168.2 L314.3 166.7 L306.1 165.6 L297.8 165.0 L289.4 165.0 L281.0 165.6 L272.8 166.8 L264.9 168.7 L257.2 171.4 L250.0 175.0 L243.4 180.0 L237.4 186.7 L231.8 194.7 L226.5 203.6 L221.2 212.8 L215.9 222.0 L210.3 230.8 L204.2 238.7 L197.5 245.2 L190.0 250.0 L181.4 253.4 L171.7 256.2 L161.2 258.3 L150.2 259.7 L139.1 260.3 L128.0 260.1 L117.2 259.0 L107.1 257.0 L98.0 254.0 L90.0 250.0 L82.9 244.6 L76.0 237.8 L69.6 229.6 L63.7 220.5 L58.4 210.6 L53.9 200.3 L50.2 189.8 L47.4 179.4 L45.6 169.4 L45.0 160.0 L45.3 150.7 L46.4 140.9 L48.3 130.8 L51.0 120.6 L54.7 110.6 L59.4 101.0 L65.2 91.9 L72.2 83.5 L80.4 76.2 Z" fill="none" stroke="#5A4A2E" stroke-width="2" stroke-dasharray="6 7"></path><circle cx="76.4" cy="55.0" r="5" fill="#1F5FD1" stroke="#14231C" stroke-width="1"></circle><circle cx="110.0" cy="41.6" r="5" fill="#1F5FD1" stroke="#14231C" stroke-width="1"></circle><circle cx="137.9" cy="36.4" r="5" fill="#1F5FD1" stroke="#14231C" stroke-width="1"></circle><circle cx="161.7" cy="33.8" r="5" fill="#1F5FD1" stroke="#14231C" stroke-width="1"></circle><circle cx="189.2" cy="32.0" r="5" fill="#1F5FD1" stroke="#14231C" stroke-width="1"></circle><circle cx="213.2" cy="31.1" r="5" fill="#1F5FD1" stroke="#14231C" stroke-width="1"></circle><circle cx="238.8" cy="30.3" r="5" fill="#1F5FD1" stroke="#14231C" stroke-width="1"></circle><circle cx="262.6" cy="29.7" r="5" fill="#1F5FD1" stroke="#14231C" stroke-width="1"></circle><circle cx="289.5" cy="29.5" r="5" fill="#1F5FD1" stroke="#14231C" stroke-width="1"></circle><circle cx="313.8" cy="29.9" r="5" fill="#1F5FD1" stroke="#14231C" stroke-width="1"></circle><circle cx="340.5" cy="31.3" r="5" fill="#1F5FD1" stroke="#14231C" stroke-width="1"></circle><circle cx="366.3" cy="33.8" r="5" fill="#1F5FD1" stroke="#14231C" stroke-width="1"></circle><circle cx="393.1" cy="38.0" r="5" fill="#1F5FD1" stroke="#14231C" stroke-width="1"></circle><circle cx="417.9" cy="44.0" r="5" fill="#1F5FD1" stroke="#14231C" stroke-width="1"></circle><circle cx="444.0" cy="52.3" r="5" fill="#1F5FD1" stroke="#14231C" stroke-width="1"></circle><circle cx="468.6" cy="62.6" r="5" fill="#1F5FD1" stroke="#14231C" stroke-width="1"></circle><circle cx="492.3" cy="75.9" r="5" fill="#1F5FD1" stroke="#14231C" stroke-width="1"></circle><circle cx="515.3" cy="97.0" r="5" fill="#1F5FD1" stroke="#14231C" stroke-width="1"></circle><circle cx="527.4" cy="130.0" r="5" fill="#1F5FD1" stroke="#14231C" stroke-width="1"></circle><circle cx="525.3" cy="161.9" r="5" fill="#1F5FD1" stroke="#14231C" stroke-width="1"></circle><circle cx="514.1" cy="190.8" r="5" fill="#1F5FD1" stroke="#14231C" stroke-width="1"></circle><circle cx="489.6" cy="215.3" r="5" fill="#1F5FD1" stroke="#14231C" stroke-width="1"></circle><circle cx="463.3" cy="226.9" r="5" fill="#1F5FD1" stroke="#14231C" stroke-width="1"></circle><circle cx="434.5" cy="233.7" r="5" fill="#1F5FD1" stroke="#14231C" stroke-width="1"></circle><circle cx="406.4" cy="235.5" r="5" fill="#1F5FD1" stroke="#14231C" stroke-width="1"></circle><circle cx="373.4" cy="226.1" r="5" fill="#1F5FD1" stroke="#14231C" stroke-width="1"></circle><circle cx="351.0" cy="208.6" r="5" fill="#1F5FD1" stroke="#14231C" stroke-width="1"></circle><circle cx="333.9" cy="194.0" r="5" fill="#1F5FD1" stroke="#14231C" stroke-width="1"></circle><circle cx="318.2" cy="187.7" r="5" fill="#1F5FD1" stroke="#14231C" stroke-width="1"></circle><circle cx="297.0" cy="185.0" r="5" fill="#1F5FD1" stroke="#14231C" stroke-width="1"></circle><circle cx="276.7" cy="186.4" r="5" fill="#1F5FD1" stroke="#14231C" stroke-width="1"></circle><circle cx="259.5" cy="192.6" r="5" fill="#1F5FD1" stroke="#14231C" stroke-width="1"></circle><circle cx="249.4" cy="204.3" r="5" fill="#1F5FD1" stroke="#14231C" stroke-width="1"></circle><circle cx="236.9" cy="225.8" r="5" fill="#1F5FD1" stroke="#14231C" stroke-width="1"></circle><circle cx="221.9" cy="248.7" r="5" fill="#1F5FD1" stroke="#14231C" stroke-width="1"></circle><circle cx="193.2" cy="270.4" r="5" fill="#1F5FD1" stroke="#14231C" stroke-width="1"></circle><circle cx="166.4" cy="277.7" r="5" fill="#1F5FD1" stroke="#14231C" stroke-width="1"></circle><circle cx="137.3" cy="280.3" r="5" fill="#1F5FD1" stroke="#14231C" stroke-width="1"></circle><circle cx="108.2" cy="277.7" r="5" fill="#1F5FD1" stroke="#14231C" stroke-width="1"></circle><circle cx="79.5" cy="267.0" r="5" fill="#1F5FD1" stroke="#14231C" stroke-width="1"></circle><circle cx="55.8" cy="244.6" r="5" fill="#1F5FD1" stroke="#14231C" stroke-width="1"></circle><circle cx="40.5" cy="219.4" r="5" fill="#1F5FD1" stroke="#14231C" stroke-width="1"></circle><circle cx="30.5" cy="193.8" r="5" fill="#1F5FD1" stroke="#14231C" stroke-width="1"></circle><circle cx="25.1" cy="163.9" r="5" fill="#1F5FD1" stroke="#14231C" stroke-width="1"></circle><circle cx="27.2" cy="134.2" r="5" fill="#1F5FD1" stroke="#14231C" stroke-width="1"></circle><circle cx="34.7" cy="106.7" r="5" fill="#1F5FD1" stroke="#14231C" stroke-width="1"></circle><circle cx="49.1" cy="80.1" r="5" fill="#1F5FD1" stroke="#14231C" stroke-width="1"></circle><circle cx="97.1" cy="89.0" r="5" fill="#F2C200" stroke="#14231C" stroke-width="1"></circle><circle cx="119.6" cy="80.5" r="5" fill="#F2C200" stroke="#14231C" stroke-width="1"></circle><circle cx="143.4" cy="76.1" r="5" fill="#F2C200" stroke="#14231C" stroke-width="1"></circle><circle cx="165.1" cy="73.7" r="5" fill="#F2C200" stroke="#14231C" stroke-width="1"></circle><circle cx="191.1" cy="72.0" r="5" fill="#F2C200" stroke="#14231C" stroke-width="1"></circle><circle cx="214.5" cy="71.0" r="5" fill="#F2C200" stroke="#14231C" stroke-width="1"></circle><circle cx="239.9" cy="70.3" r="5" fill="#F2C200" stroke="#14231C" stroke-width="1"></circle><circle cx="263.4" cy="69.7" r="5" fill="#F2C200" stroke="#14231C" stroke-width="1"></circle><circle cx="289.3" cy="69.5" r="5" fill="#F2C200" stroke="#14231C" stroke-width="1"></circle><circle cx="312.4" cy="69.9" r="5" fill="#F2C200" stroke="#14231C" stroke-width="1"></circle><circle cx="337.6" cy="71.2" r="5" fill="#F2C200" stroke="#14231C" stroke-width="1"></circle><circle cx="361.4" cy="73.5" r="5" fill="#F2C200" stroke="#14231C" stroke-width="1"></circle><circle cx="385.4" cy="77.3" r="5" fill="#F2C200" stroke="#14231C" stroke-width="1"></circle><circle cx="407.2" cy="82.5" r="5" fill="#F2C200" stroke="#14231C" stroke-width="1"></circle><circle cx="430.3" cy="89.9" r="5" fill="#F2C200" stroke="#14231C" stroke-width="1"></circle><circle cx="451.4" cy="98.7" r="5" fill="#F2C200" stroke="#14231C" stroke-width="1"></circle><circle cx="469.9" cy="109.1" r="5" fill="#F2C200" stroke="#14231C" stroke-width="1"></circle><circle cx="483.1" cy="120.8" r="5" fill="#F2C200" stroke="#14231C" stroke-width="1"></circle><circle cx="487.6" cy="134.1" r="5" fill="#F2C200" stroke="#14231C" stroke-width="1"></circle><circle cx="486.2" cy="153.2" r="5" fill="#F2C200" stroke="#14231C" stroke-width="1"></circle><circle cx="479.6" cy="170.6" r="5" fill="#F2C200" stroke="#14231C" stroke-width="1"></circle><circle cx="469.2" cy="181.0" r="5" fill="#F2C200" stroke="#14231C" stroke-width="1"></circle><circle cx="451.0" cy="188.8" r="5" fill="#F2C200" stroke="#14231C" stroke-width="1"></circle><circle cx="428.5" cy="194.1" r="5" fill="#F2C200" stroke="#14231C" stroke-width="1"></circle><circle cx="407.7" cy="195.6" r="5" fill="#F2C200" stroke="#14231C" stroke-width="1"></circle><circle cx="394.0" cy="191.8" r="5" fill="#F2C200" stroke="#14231C" stroke-width="1"></circle><circle cx="377.8" cy="178.9" r="5" fill="#F2C200" stroke="#14231C" stroke-width="1"></circle><circle cx="357.0" cy="161.4" r="5" fill="#F2C200" stroke="#14231C" stroke-width="1"></circle><circle cx="326.5" cy="148.6" r="5" fill="#F2C200" stroke="#14231C" stroke-width="1"></circle><circle cx="298.5" cy="145.1" r="5" fill="#F2C200" stroke="#14231C" stroke-width="1"></circle><circle cx="269.0" cy="147.1" r="5" fill="#F2C200" stroke="#14231C" stroke-width="1"></circle><circle cx="238.1" cy="158.8" r="5" fill="#F2C200" stroke="#14231C" stroke-width="1"></circle><circle cx="216.0" cy="182.4" r="5" fill="#F2C200" stroke="#14231C" stroke-width="1"></circle><circle cx="202.1" cy="206.0" r="5" fill="#F2C200" stroke="#14231C" stroke-width="1"></circle><circle cx="190.7" cy="223.7" r="5" fill="#F2C200" stroke="#14231C" stroke-width="1"></circle><circle cx="178.4" cy="233.2" r="5" fill="#F2C200" stroke="#14231C" stroke-width="1"></circle><circle cx="159.5" cy="238.3" r="5" fill="#F2C200" stroke="#14231C" stroke-width="1"></circle><circle cx="137.1" cy="240.3" r="5" fill="#F2C200" stroke="#14231C" stroke-width="1"></circle><circle cx="116.0" cy="238.5" r="5" fill="#F2C200" stroke="#14231C" stroke-width="1"></circle><circle cx="100.5" cy="233.0" r="5" fill="#F2C200" stroke="#14231C" stroke-width="1"></circle><circle cx="87.6" cy="220.3" r="5" fill="#F2C200" stroke="#14231C" stroke-width="1"></circle><circle cx="76.4" cy="201.9" r="5" fill="#F2C200" stroke="#14231C" stroke-width="1"></circle><circle cx="68.8" cy="182.4" r="5" fill="#F2C200" stroke="#14231C" stroke-width="1"></circle><circle cx="65.0" cy="162.2" r="5" fill="#F2C200" stroke="#14231C" stroke-width="1"></circle><circle cx="66.6" cy="140.9" r="5" fill="#F2C200" stroke="#14231C" stroke-width="1"></circle><circle cx="72.0" cy="121.1" r="5" fill="#F2C200" stroke="#14231C" stroke-width="1"></circle><circle cx="81.4" cy="103.6" r="5" fill="#F2C200" stroke="#14231C" stroke-width="1"></circle><g id="car" transform="translate(193.1 51.9) rotate(-2.7)"><path d="M13 0 -9 -7 -9 7Z" fill="#A3242F" stroke="#2A211C" stroke-width="1.5"></path></g></svg>
-          <figcaption style="font: 15px/1.4 'Special Elite', monospace"><span class="swatch" style="background: #1F5FD1"></span>Blue, left &nbsp; <span class="swatch" style="background: #F2C200"></span>Yellow, right &nbsp; <span class="swatch" style="background: #A3242F"></span>The car, no driver</figcaption>
-        </figure>
-      </div>
-      <div>
-        <p class="sec" style="margin-bottom: 12px">CHAIN OF CUSTODY · WHO HANDS WHAT TO WHOM</p>
-        <ol class="chain">
-          <li><b>1 · cuCONERUSH</b>Finds the cones in the LiDAR point cloud.</li>
-                    <li><b>2 · cuCONEFUSED</b>Maps them on lap 1 and localises against them after that.</li>
-          <li><b>3 · cuCONESTELLATION</b>Grows a centerline between them for the car to follow.</li>
-          <li class="off"><b>Happily Retired · CONEPOSER</b>Optional. Puts the cones where you can see them in RViz or Foxglove, as a ground-truth reference.</li>
-        </ol>
-      </div>
-    </section>
+    <figure class="exhibit">
+      <p class="label">Exhibit A · The area of operations</p>
+      <svg class="track" data-track viewBox="0 0 540 290" role="img" aria-label="A closed racing circuit seen from above, marked by blue cones on the left of the car and yellow cones on the right, with a dashed centerline between them."></svg>
+      <figcaption><span><span class="dot blue"></span>Blue, left</span> <span><span class="dot yellow"></span>Yellow, right</span> <span><span class="dot car"></span>The car, no driver</span></figcaption>
+    </figure>
 
-    <article class="sheet">
-      <div class="top"><span>SUBJECT 01 · CODENAME <span class="x">SPRINTER</span></span><span>STATUS: ACTIVE</span></div>
-      <h3><a href="https://github.com/leonardonels/cuda_cone_rush">cuCONERUSH</a></h3>
-      <p class="note">ask it about the CPU. go on.</p>
-      <div>
-        <p class="sec">§1 PROFILE</p>
-        <div class="row"><span class="ex"></span><div class="kv"><i>ROLE</i><span>Detection. Point cloud in, cone markers out.</span></div></div>
-        <div class="row"><span class="ex"></span><div class="kv"><i>MEASURED LATENCY</i><span>1.1 ms</span></div></div>
-        <div class="row"><span class="ex">(c)(1)</span><div class="kv"><i>HARDWARE</i><span>A laptop GPU, specifically an <span class="x">RTX 4060 Mobile</span></span></div></div>
-        <div class="row"><span class="ex">(c)(1)</span><div class="kv"><i>CPU ASSISTANCE</i><span>Requested on <span class="x">no occasion whatsoever</span></span></div></div>
-      </div>
-      <div>
-        <p class="sec">§2 FIELD LOG</p>
-        <div class="row log"><span class="ex"></span><span><b>0.0000 s</b>Point cloud arrives on the GPU.</span></div>
-        <div class="row log"><span class="ex"></span><span><b>0.0011 s</b>Cone markers published. Point cloud never left the GPU.</span></div>
-        <div class="row log"><span class="ex"></span><span><b>0.0011 s</b>CPU enquires whether it might help.</span></div>
-        <div class="row log"><span class="ex">(c)(1)</span><span><b>0.0011 s</b>Subject declines: "<span class="x">It would be embarrassing for everyone.</span>"</span></div>
-      </div>
-      <div>
-        <p class="sec">§3 ASSESSMENT</p>
-        <div class="row"><span class="ex">(c)(1)</span><p class="para">Fast, self-sufficient and faintly condescending. Its attitude toward the CPU is best described as <span class="x">embarrassment on the CPU's behalf</span>. Recommended wherever speed matters more than feelings.</p></div>
-      </div>
-    </article>
+    <ol class="chain" aria-label="Chain of custody">
+      <li><b>01 Rush</b>Finds cones in the LiDAR cloud.</li>
+      <li><b>02 Fused</b>Maps them, then localises on them.</li>
+      <li><b>03 Stellation</b>Grows the centerline.</li>
+      <li class="off"><b>— Poser</b>Retired. One matrix multiply.</li>
+    </ol>
 
-    <article class="sheet">
-      <div class="top"><span>SUBJECT 02 · CODENAME <span class="x">COURIER</span></span><span>STATUS: OPTIONAL, BY DESIGN</span></div>
-      <h3><a href="https://github.com/leonardonels/cone_poser">CONEPOSER</a></h3>
-      <p class="note">check the git log. really.</p>
-      <div>
-        <p class="sec">§1 PROFILE</p>
-        <div class="row"><span class="ex"></span><div class="kv"><i>ROLE</i><span>Moves cones to where they can be seen in RViz or Foxglove.</span></div></div>
-        <div class="row"><span class="ex"></span><div class="kv"><i>USE</i><span>Visual ground-truth reference</span></div></div>
-        <div class="row"><span class="ex"></span><div class="kv"><i>RACE DUTIES</i><span>None. Not part of the pipeline.</span></div></div>
-        <div class="row"><span class="ex">(c)(1)</span><div class="kv"><i>METHOD</i><span><span class="x">Exactly one matrix multiply</span></span></div></div>
-        <div class="row"><span class="ex"></span><div class="kv"><i>FILTERING / FUSION</i><span>None / none</span></div></div>
-        <div class="row"><span class="ex">(c)(1)</span><div class="kv"><i>SERVICE RECORD</i><span>1 commit, titled "<span class="x">first commit</span>"</span></div></div>
-      </div>
-      <div>
-        <p class="sec">§2 INTERVIEW TRANSCRIPT</p>
-        <div class="row log"><span class="ex"></span><span><b>Q.</b>Describe your method.</span></div>
-        <div class="row log"><span class="ex">(c)(1)</span><span><b>A.</b><span class="x">I multiply by a matrix.</span></span></div>
-        <div class="row log"><span class="ex"></span><span><b>Q.</b>And after that?</span></div>
-        <div class="row log"><span class="ex">(c)(1)</span><span><b>A.</b><span class="x">There is no after that.</span></span></div>
-      </div>
-      <div>
-        <p class="sec">§3 ASSESSMENT</p>
-        <div class="row"><span class="ex">(c)(1)</span><p class="para">Either the simplest member of the Club or the most disciplined. Investigators could not establish which, because <span class="x">there is only one commit to read</span>. It does one job, and it does it well. Sometimes you simply need the cones somewhere else.</p></div>
-      </div>
-    </article>
+    <div class="controls">
+      <button type="button" id="declassify" aria-pressed="false">DECLASSIFY ALL</button>
+      <span>PASSAGES WITHHELD: <span id="withheld">0</span> · OR CLICK A BAR</span>
+    </div>
+    <hr>
+    <div class="foot"><span>Case #: CS-004 / 0</span><span>Status: <span class="tag">AT LARGE</span></span></div>
+  </section>
 
-    <article class="sheet">
-      <div class="top"><span>SUBJECT 03 · CODENAME <span class="x">CARTOGRAPHER</span></span><span>STATUS: ACTIVE</span></div>
-      <h3><a href="https://github.com/leonardonels/cuda_cone_fused">cuCONEFUSED</a></h3>
-      <p class="note">does the sensor know??</p>
-      <div>
-        <p class="sec">§1 PROFILE</p>
-        <div class="row"><span class="ex"></span><div class="kv"><i>ROLE</i><span>EKF-SLAM</span></div></div>
-        <div class="row"><span class="ex"></span><div class="kv"><i>LAP 1</i><span>Builds the cone map</span></div></div>
-        <div class="row"><span class="ex"></span><div class="kv"><i>LAP 2 ONWARD</i><span>Localises against it</span></div></div>
-        <div class="row"><span class="ex">(c)(1)</span><div class="kv"><i>PRIMARY TARGET</i><span>The <span class="x">expensive sensor's self-confidence</span></span></div></div>
+  <section class="page">
+    <hr>
+    <div class="meta"><span>Subject: cuCONERUSH</span><span>Codename: <span class="r">SPRINTER</span></span></div>
+    <hr>
+    <div class="body">
+      <span class="vstamp">EXHIBIT 1</span>
+      <div class="lines">
+        <p>Point cloud in, cone markers out. XYZ filter, RANSAC ground segmentation, voxel clustering and cone-size filtering, all without leaving the GPU.</p>
+        <p>Measured at 1.1 ms on an <span class="r">RTX 4060 Mobile</span>, 10 ms on an Orin Nano Super. CPU assistance requested on <span class="r">no occasion whatsoever</span>.</p>
+        <p>Known hazard: if <code>maxHeight</code> sits below the ground plane at full range, far cones are silently dropped and <span class="r">everyone blames the clustering</span>.</p>
       </div>
-      <div>
-        <p class="sec">§2 FIELD LOG</p>
-        <div class="row log"><span class="ex"></span><span><b>LAP 1</b>Subject quietly records the position of every cone.</span></div>
-        <div class="row log"><span class="ex">(c)(1)</span><span><b>LAP 2</b>Subject begins correcting the <span class="x">expensive sensor</span>, using the cones.</span></div>
-        <div class="row log"><span class="ex">(c)(1)</span><span><b>LAP 2</b>The sensor is <span class="x">not informed</span>.</span></div>
-      </div>
-      <div>
-        <p class="sec">§3 ASSESSMENT</p>
-        <div class="row"><span class="ex">(c)(1)</span><p class="para">The cones are cheap, plastic and stationary; <span class="x">the sensor is none of these</span>. Subject exploits the difference with remarkable composure. Less a README than a thesis with a rosbag.</p></div>
-      </div>
-    </article>
+    </div>
+    <hr>
+    <div class="foot"><span>Case #: CS-004 / 1</span><a href="https://github.com/leonardonels/cuda_cone_rush">github / cuda_cone_rush</a></div>
+  </section>
 
-    <article class="sheet">
-      <div class="top"><span>SUBJECT 04 · CODENAME <span class="x">PATHFINDER</span></span><span>STATUS: NEWEST RECRUIT</span></div>
-      <h3><a href="https://github.com/leonardonels/cuda_cone_stellation">cuCONESTELLATION</a></h3>
-      <p class="note">ask about the Orin.</p>
-      <div>
-        <p class="sec">§1 PROFILE</p>
-        <div class="row"><span class="ex"></span><div class="kv"><i>ROLE</i><span>Triangulates the cone map, grows a centerline</span></div></div>
-        <div class="row"><span class="ex">(c)(1)</span><div class="kv"><i>CENTERLINE, A.K.A.</i><span><span class="x">the Way</span> (sic, without irony)</span></div></div>
-        <div class="row"><span class="ex"></span><div class="kv"><i>BACKENDS</i><span>4</span></div></div>
-        <div class="row"><span class="ex">(c)(1)</span><div class="kv"><i>DISAGREEMENT</i><span><span class="x">0 bytes</span> between any two backends</span></div></div>
+  <section class="page">
+    <hr>
+    <div class="meta"><span>Subject: cuCONEFUSED</span><span>Codename: <span class="r">CARTOGRAPHER</span></span></div>
+    <hr>
+    <div class="body">
+      <span class="vstamp">EXHIBIT 2</span>
+      <div class="lines">
+        <p>EKF-SLAM. Lap 1 builds the cone map with the pose gain frozen. From lap 2 the map is rigid and only the 3×3 pose block updates.</p>
+        <p>Covariance stays on the device for the whole run. A full-map update drops from 15 ms on a CPU core to 1.3 ms on an Orin Nano.</p>
+        <p>Primary target: <span class="r">the expensive sensor's self-confidence</span>. The sensor is <span class="r">not informed</span>.</p>
       </div>
-      <div>
-        <p class="sec">§2 FIELD LOG</p>
-        <div class="row log"><span class="ex"></span><span><b>TEST 1</b>All four backends run on the same cone map.</span></div>
-        <div class="row log"><span class="ex">(c)(1)</span><span><b>TEST 2</b>Outputs compared: <span class="x">byte-identical</span>.</span></div>
-        <div class="row log"><span class="ex">(c)(1)</span><span><b>TEST 3</b>Only measurable difference: <span class="x">how hot the Orin got</span>.</span></div>
-      </div>
-      <div>
-        <p class="sec">§3 ASSESSMENT</p>
-        <div class="row"><span class="ex">(c)(1)</span><p class="para">Subject refers to its output as <span class="x">the Way</span>. Agents are advised not to <span class="x">ask which backend is fastest</span> within earshot of the Orin.</p></div>
-      </div>
-    </article>
+    </div>
+    <hr>
+    <div class="foot"><span>Case #: CS-004 / 2</span><a href="https://github.com/leonardonels/cuda_cone_fused">github / cuda_cone_fused</a></div>
+  </section>
 
-    <section class="sheet">
-      <div class="top"><span>APPENDIX A · EXTRACTION PROCEDURE</span><span>BURN AFTER COLCON</span></div>
-      <p class="note" style="top: 64px">you WILL forget this flag.</p>
-      <pre style="margin: 0; padding: 20px; background: #14231C; color: #F6EFDF; font: 16px/1.7 'Courier Prime', monospace; overflow-x: auto">git clone <span class="x dark">--recurse-submodules</span> https://github.com/leonardonels/ConeSortium
+  <section class="page">
+    <hr>
+    <div class="meta"><span>Subject: cuCONESTELLATION</span><span>Codename: <span class="r">PATHFINDER</span></span></div>
+    <hr>
+    <div class="body">
+      <span class="vstamp">EXHIBIT 3</span>
+      <div class="lines">
+        <p>Triangulates the cone map and grows a centerline through it. Four backends. Outputs compared: <span class="r">byte-identical</span>.</p>
+        <p>Only measurable difference between them: <span class="r">how hot the Orin got</span>. Subject refers to its output as <span class="r">the Way</span>.</p>
+      </div>
+    </div>
+    <hr>
+    <div class="foot"><span>Case #: CS-004 / 3</span><a href="https://github.com/leonardonels/cuda_cone_stellation">github / cuda_cone_stellation</a></div>
+  </section>
+
+  <section class="page">
+    <hr>
+    <div class="meta"><span>Subject: CONEPOSER</span><span>Status: Retired</span></div>
+    <hr>
+    <div class="body">
+      <span class="vstamp">EXHIBIT 4</span>
+      <div class="lines">
+        <p>T<sub>global</sub> = T<sub>odom</sub> · T<sub>marker</sub>. That is the whole package. Kept as a ground-truth reference for RViz and Foxglove.</p>
+        <p>Service record: one commit, titled <span class="r">"first commit"</span>.</p>
+      </div>
+    </div>
+    <hr>
+    <div class="foot"><span>Case #: CS-004 / 4</span><a href="https://github.com/leonardonels/cone_poser">github / cone_poser</a></div>
+  </section>
+
+  <section class="page">
+    <hr>
+    <div class="meta"><span>Appendix A: Extraction procedure</span><span>Burn after colcon</span></div>
+    <hr>
+    <pre>git clone <span class="r">--recurse-submodules</span> https://github.com/leonardonels/ConeSortium
 # if the flag above was omitted:
-<span class="x dark">git submodule update --init --recursive</span>
+<span class="r">git submodule update --init --recursive</span>
 colcon build</pre>
-      <p class="para" style="font-size: 16px">Licensed per package. The cones themselves remain unlicensed and at large. <a href="https://github.com/leonardonels/ConeSortium">Full archive.</a></p>
-    </section>
-  </main>
-</div>
-<script>
-(function(){
-  var root=document.documentElement;
-  root.classList.add('js');
-  var still=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    <p class="small">Licensed per package. The cones themselves remain unlicensed and at large.</p>
+    <hr>
+    <div class="foot"><span>Case #: CS-004 / A</span><a href="https://github.com/leonardonels/ConeSortium">full archive</a></div>
+  </section>
 
-  /* Redactions: split each passage into word bars */
-  var xs=[].slice.call(document.querySelectorAll('.x')),words=[];
-  xs.forEach(function(x){
-    var parts=x.textContent.split(/(\s+)/);x.textContent='';
-    for(var i=0;i<parts.length;i+=2){
-      var w=document.createElement('span');w.className='w';
-      w.textContent=parts[i]+(parts[i+1]||'');x.appendChild(w);words.push(w);
-    }
-  });
-
-  /* Declassify: bars peel away in reading order, then the stamp lands */
-  var btn=document.getElementById('declassify'),count=document.getElementById('withheld'),
-      stamp=document.getElementById('stamp'),hdr=document.getElementById('hdr'),total=xs.length;
-  count.textContent=total;document.querySelector('[data-total]').textContent=total;
-  btn.addEventListener('click',function(){
-    var open=root.classList.toggle('open');
-    words.forEach(function(w,i){w.style.transitionDelay=(open?i*.025:(words.length-i)*.012)+'s'});
-    btn.textContent=open?'RECLASSIFY':'DECLASSIFY';
-    btn.setAttribute('aria-pressed',open);
-    count.textContent=open?0:total;
-    stamp.classList.remove('go');hdr.classList.remove('jolt');
-    if(open){void stamp.offsetWidth;stamp.classList.add('go');hdr.classList.add('jolt')}
-  });
-
-  /* Red pen notes write in when their sheet comes into view */
-  var sheets=[].slice.call(document.querySelectorAll('.sheet'));
-  if('IntersectionObserver' in window){
-    var io=new IntersectionObserver(function(es){es.forEach(function(e){
-      if(e.isIntersecting){e.target.classList.add('seen');io.unobserve(e.target)}
-    })},{threshold:.35});
-    sheets.forEach(function(s){io.observe(s)});
-  }else sheets.forEach(function(s){s.classList.add('seen')});
-
-  /* Exhibit A: the car laps the centerline; cones it "finds" ahead turn purple */
-  var trk=document.getElementById('track'),car=document.getElementById('car');
-  if(!trk||!car||still)return;
-  var L=trk.getTotalLength(),N=400,pts=[];
-  for(var i=0;i<N;i++){var p=trk.getPointAtLength(i/N*L);pts.push([p.x,p.y,i/N*L])}
-  var cones=[].slice.call(trk.ownerSVGElement.querySelectorAll('circle')).map(function(c){
-    var cx=+c.getAttribute('cx'),cy=+c.getAttribute('cy'),best=0,bd=1e9;
-    pts.forEach(function(p){var d=(p[0]-cx)*(p[0]-cx)+(p[1]-cy)*(p[1]-cy);if(d<bd){bd=d;best=p[2]}});
-    c.classList.add('cone');return{el:c,s:best,on:false};
-  });
-  trk.ownerSVGElement.classList.add('live');
-  var near=L*.025,far=L*.25,t0=null,LAP=11000;
-  function frame(now){
-    if(t0===null)t0=now;
-    var s=((now-t0)/LAP*L)%L,p=trk.getPointAtLength(s),q=trk.getPointAtLength((s+2)%L);
-    car.setAttribute('transform','translate('+p.x+' '+p.y+') rotate('+Math.atan2(q.y-p.y,q.x-p.x)*180/Math.PI+')');
-    cones.forEach(function(c){
-      var d=(c.s-s+L)%L,on=d>near&&d<far;
-      if(on!==c.on){c.on=on;c.el.classList.toggle('found',on)}
-    });
-    requestAnimationFrame(frame);
-  }
-  requestAnimationFrame(frame);
-})();
-</script>
+  <p class="archive">CONESORTIUM ARCHIVES</p>
+</main>
 </body>
 </html>

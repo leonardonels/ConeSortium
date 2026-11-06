@@ -1,0 +1,290 @@
+/* ConeSortium · Cone Case File
+   One quiet case file, typeset like a real archive sheet.
+   The black bars and the red stamps are the only loud things on the page. */
+
+:root {
+  --paper:   #E9E5DC;
+  --paper-2: #DCD6C8;
+  --ink:     #1B1A17;
+  --bar:     #141311;
+  --bar-hov: #2C2A26;
+  --stamp:   #A82C25;
+  --rule:    #2B2925;
+  --muted:   #6A655A;
+  --blue:    #1F5FD1;
+  --yellow:  #F2C200;
+
+  --serif: 'Old Standard TT', Georgia, serif;
+  --mono:  'Courier Prime', 'Courier New', monospace;
+
+  color-scheme: light;
+}
+
+* { box-sizing: border-box; }
+
+html { background: var(--paper-2); }
+
+body {
+  margin: 0;
+  color: var(--ink);
+  font: 17px/1.6 var(--mono);
+  /* paper grain */
+  background: var(--paper) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3'/%3E%3CfeColorMatrix values='0 0 0 0 .1 0 0 0 0 .09 0 0 0 0 .07 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+  padding: 56px max(16px, env(safe-area-inset-right, 0px)) 80px max(16px, env(safe-area-inset-left, 0px));
+}
+
+a { color: inherit; }
+a:hover { color: var(--stamp); }
+code { font: inherit; font-weight: 700; }
+
+/* ---------- Sheets ---------- */
+
+.file {
+  max-width: 760px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 64px;
+  overflow-x: clip; /* keeps the oversized DECLASSIFIED stamp from widening the page */
+}
+
+.page {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+hr { border: 0; border-top: 1.5px solid var(--rule); margin: 0; }
+
+h1 {
+  margin: 0;
+  text-align: center;
+  font: 700 clamp(30px, 6vw, 50px)/1.1 var(--serif);
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+
+.meta {
+  display: grid;
+  justify-items: end;
+  gap: 2px;
+  font-size: 15px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+.label {
+  margin: 0;
+  font-size: 13px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+}
+
+.body {
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr);
+  gap: 0 26px;
+}
+
+.lines {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  font-size: 18px;
+  line-height: 1.55;
+}
+.lines p { margin: 0; }
+
+.small { margin: 0; font-size: 15px; }
+
+.foot {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  font-size: 15px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+.foot .tag { background: var(--bar); color: var(--paper); padding: 0 6px; }
+
+.archive {
+  margin: 0;
+  text-align: center;
+  font: 700 13px var(--mono);
+  letter-spacing: .24em;
+}
+
+pre {
+  margin: 0;
+  padding-left: 16px;
+  border-left: 3px solid var(--rule);
+  font: 15px/1.7 var(--mono);
+  overflow-x: auto;
+}
+
+/* ---------- Stamps ---------- */
+
+/* rough ink edge shared by every stamp */
+.stamp, .vstamp, .declassified {
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.9'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -2.4 2'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E");
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.9'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -2.4 2'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.stamp {
+  align-self: center;
+  padding: 6px 18px;
+  border-top: 4px solid var(--stamp);
+  border-bottom: 4px solid var(--stamp);
+  color: var(--stamp);
+  font: 700 clamp(30px, 6vw, 46px)/1 var(--mono);
+  letter-spacing: .06em;
+  transform: rotate(-3deg);
+  opacity: .88;
+}
+
+.vstamp {
+  align-self: start;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  padding: 8px 3px;
+  border: 2px solid var(--stamp);
+  border-radius: 3px;
+  color: var(--stamp);
+  font: 700 13px var(--mono);
+  letter-spacing: .16em;
+}
+
+/* lands on the first sheet when everything is declassified (added by JS) */
+.declassified {
+  position: absolute;
+  left: 0;
+  top: 236px;
+  padding: 6px 14px;
+  border: 5px solid var(--stamp);
+  color: var(--stamp);
+  font: 700 clamp(18px, 3vw, 28px) var(--mono);
+  letter-spacing: .2em;
+  opacity: 0;
+  transform: rotate(-12deg) scale(3);
+  pointer-events: none;
+}
+.declassified.go { animation: slam .5s cubic-bezier(.2, 1.6, .4, 1) forwards; }
+@keyframes slam {
+  60%  { opacity: .9;  transform: rotate(-12deg) scale(.92); }
+  100% { opacity: .85; transform: rotate(-12deg) scale(1); }
+}
+
+/* ---------- Redactions ---------- */
+
+.r {
+  padding: 0 .15em;
+  border-radius: 2px;
+  background: var(--bar);
+  color: var(--bar);
+  cursor: pointer;
+  -webkit-box-decoration-break: clone;
+          box-decoration-break: clone;
+  transition: background .5s, color .5s;
+}
+.r:hover { background: var(--bar-hov); color: var(--bar-hov); }
+.r.on,
+.all .r {
+  background: transparent;
+  color: var(--stamp);
+  text-decoration: underline 1.5px;
+}
+.r:focus-visible { outline: 2px solid var(--stamp); outline-offset: 2px; }
+
+/* ---------- Exhibit A ---------- */
+
+.exhibit { margin: 0; display: flex; flex-direction: column; gap: 10px; }
+.track { display: block; width: 100%; height: auto; }
+.track .centerline { fill: none; stroke: var(--muted); stroke-width: 1.5; stroke-dasharray: 5 7; }
+.track .cone { stroke: var(--ink); stroke-width: 1; transition: opacity .8s ease-out; }
+.track .cone.blue   { fill: var(--blue); }
+.track .cone.yellow { fill: var(--yellow); }
+.track.live .cone { opacity: .35; }
+.track.live .cone.seen { opacity: 1; }
+.track .car { fill: var(--stamp); stroke: var(--ink); stroke-width: 1.5; }
+
+.exhibit figcaption { display: flex; flex-wrap: wrap; gap: 4px 18px; font-size: 14px; }
+.dot {
+  display: inline-block;
+  width: 11px; height: 11px;
+  margin-right: 6px;
+  border: 1px solid var(--ink);
+  border-radius: 50%;
+  vertical-align: -1px;
+}
+.dot.blue   { background: var(--blue); }
+.dot.yellow { background: var(--yellow); }
+.dot.car    { background: var(--stamp); border-radius: 0; }
+
+/* ---------- Chain of custody ---------- */
+
+.chain {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border: 1.5px solid var(--rule);
+}
+.chain li {
+  padding: 12px 14px;
+  border-left: 1.5px solid var(--rule);
+  font-size: 14px;
+  line-height: 1.4;
+}
+.chain li:first-child { border-left: 0; }
+.chain b { display: block; margin-bottom: 4px; font: 700 18px var(--serif); }
+.chain .off { color: var(--muted); }
+
+/* ---------- Controls ---------- */
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  font-size: 13px;
+  letter-spacing: .16em;
+}
+
+button {
+  padding: 10px 20px;
+  border: 2px solid var(--stamp);
+  background: none;
+  color: var(--stamp);
+  font: 700 13px var(--mono);
+  letter-spacing: .2em;
+  cursor: pointer;
+}
+button:hover { background: var(--stamp); color: var(--paper); }
+button:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+
+/* ---------- Small screens ---------- */
+
+@media (max-width: 640px) {
+  body { padding-top: 32px; }
+  .chain { grid-template-columns: 1fr 1fr; }
+  .chain li:nth-child(3) { border-left: 0; }
+  .chain li:nth-child(n+3) { border-top: 1.5px solid var(--rule); }
+  .body { grid-template-columns: minmax(0, 1fr); }
+  .vstamp {
+    justify-self: start;
+    margin-bottom: 14px;
+    writing-mode: horizontal-tb;
+    transform: none;
+  }
+  .declassified { top: 200px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .r, .track .cone { transition: none; }
+  .declassified.go { animation: none; opacity: .85; transform: rotate(-12deg); }
+}
